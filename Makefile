@@ -2,8 +2,9 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS =  srcs/main.c srcs/ft_split.c srcs/ft_calloc.c \
-		srcs/ft_parse.c
+SRCS =  srcs/main.c srcs/utils/ft_split.c srcs/utils/ft_calloc.c \
+		srcs/ft_parse.c srcs/writter.c srcs/utils/str.c \
+		srcs/utils/ft_free.c srcs/fct.c
 
 OBJS = ${SRCS:.c=.o}
 all: ${NAME}

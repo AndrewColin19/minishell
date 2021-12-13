@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 15:19:11 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/09 15:29:32 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/11 11:18:44 by andrew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,13 @@ void	ft_rm_space_start(char **cmd_tab)
 		i++;
 	}
 }
-
-int	parse(char *cmd)
+char	**parse(char *cmd)
 {
 	char	**cmd_tab;
 	
 	if (!check_pip(cmd))
-		return (0);
+		return (NULL);
 	cmd_tab = ft_split(cmd, '|');
 	ft_rm_space_start(cmd_tab);
-	return (1);
+	return (cmd_tab);
 }
