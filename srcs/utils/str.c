@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 14:25:54 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/11 11:15:09 by andrew           ###   ########.fr       */
+/*   Updated: 2021/12/15 15:31:43 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,32 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	s1_size;
+
+	if (!s1 || !s2)
+		return (NULL);
+	s1_size = ft_strlen(s1);
+	str = malloc(sizeof(char) * (s1_size + ft_strlen(s2)) + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (s2[i] != '\0')
+	{
+		str[s1_size + i] = s2[i];
+		i++;
+	}
+	str[s1_size + i] = '\0';
+	return (str);
 }

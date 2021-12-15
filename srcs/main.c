@@ -3,49 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/11 15:54:46 by andrew           ###   ########.fr       */
+/*   Updated: 2021/12/15 15:34:27 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char path[PATH_BUF];
+t_env env;
 
-void	exec(char **cmds)
+void	exec(char **cmds, t_env *env)
 {
 	int		i;
-	char	**cmd;
 
 	i = -1;
 	while (cmds[++i])
 	{
-		cmd = ft_split(cmds[i], ' ');
-		if (ft_strncmp(cmd[0], ECHO, ft_strlen(cmd[0])) == 0)
-			cmd_echo(cmd);
-		else if (ft_strncmp(cmd[0], PWD, ft_strlen(cmd[0])) == 0)
-			cmd_pwd(path);
+		if (ft_strncmp(cmds[i], ECHO, ft_strlen(ECHO)) == 0)
+			cmd_echo(cmds[i]);
+		else if (ft_strncmp(cmds[i], PWD, ft_strlen(PWD)) == 0)
+			cmd_pwd(env->path);
 	}
+}
+
+void	init(t_env *env)
+{
+	char *pwd;
+
+	getcwd(env->path, PATH_BUF);
+	env->variable = malloc(sizeof(char *) * 1);
+	pwd = ft_strjoin("PWD=", env->path);
+	env->variable[0] = malloc(sizeof(char) * ft_strlen(pwd));
+	env->variable[0] = pwd;
+	printf("%s\n", env->variable[0]);
 }
 
 int	main(void)
 {
 	char **cmds;
 
-	getcwd(path, PATH_BUF);
-	printf("path : %s\n", path);
+	init(&env);
 	while (1)
 	{
 		cmds = parse(readline(SHELL_TEXT));
-		
 		if (cmds == NULL)
 		{
 			printf("Error\n");
 			free_cmds(cmds);
 		}
 		else
-			exec(cmds);
+			exec(cmds, &env);
 	}
 }

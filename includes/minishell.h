@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/11 15:55:09 by andrew           ###   ########.fr       */
+/*   Updated: 2021/12/15 15:31:52 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # define SHELL_TEXT "minishell$ "
 # define ECHO "echo"
 # define PWD "pwd"
+# define CD "cd"
+
+typedef struct s_env
+{
+	char path[PATH_BUF];
+	char **variable;
+}	t_env;
+
 
 char	**parse(char *cmd);
 /*-------------uitls------------*/
@@ -31,13 +39,14 @@ char	**ft_split(const char *s, char c);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
 /*-------------write------------*/
 void	putstr(int fd, char *s);
 void	putstr_endl(int fd, char *s);
 /*-------------frees------------*/
 void	free_cmds(char **cmd);
 /*--------------fct-------------*/
-void	cmd_echo(char **cmd);
-void cmd_pwd(char *path);
+void	cmd_echo(char *cmd);
+void	cmd_pwd(char *path);
 
 #endif

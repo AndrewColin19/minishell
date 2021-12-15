@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   fct.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2021/12/11 15:56:13 by andrew           ###   ########.fr       */
+/*   Updated: 2021/12/15 15:19:45 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	cmd_echo(char **cmd)
+void	cmd_echo(char *cmd)
 {
 	int	ln;
-	int	i;
 
 	ln = 1;
-	i = 1;
-	if (ft_strncmp(cmd[i], "-n", ft_strlen(cmd[i])) == 0)
-	{
+	if (cmd[5] == '-' && cmd[6] == 'n' && cmd[7] == ' ')
 		ln = 0;
-		i++;
-	}
-	while (cmd[i])
-		putstr(0, cmd[i++]);
 	if (ln)
+	{
+		putstr(0, cmd + 5);
 		write(0, "\n", 1);
+	}
+	else
+		putstr(0, cmd + 8);
+	add_history(cmd);
 }
 
 void	cmd_pwd(char *path)
 {
 	if (path != NULL)
 		printf("%s\n", path);
+	add_history(PWD);
 }
