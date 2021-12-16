@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:04:49 by andrew            #+#    #+#             */
-/*   Updated: 2021/12/16 14:26:55 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:32:18 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ void	putstr_endl(int fd, char *s)
 void	put_error(char *er, char *cmd)
 {
 	int	i;
-	int j;
+	int	j;
 
 	if (cmd == NULL)
 		printf("%s\n", er);
 	else
 	{
 		i = -1;
-		while (cmd[++i] != ' ')
+		while (cmd[++i] != ' ' && cmd[i])
 			;
-		j = -1; 
+		j = -1;
 		while (++j < i)
 			printf("%c", cmd[j]);
-		printf("%s\n", er);	
+		printf("%s\n", er);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:56:28 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 15:40:44 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:21:45 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_cmd(char *cmd, char *kw, int op)
 {
 	int	kw_size;
-	int i;
+	int	i;
 
 	kw_size = ft_strlen(kw);
 	i = -1;

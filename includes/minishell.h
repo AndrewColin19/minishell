@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 15:53:51 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:28:01 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
@@ -52,8 +53,8 @@ void	put_error(char *er, char *cmd);
 void	free_cmds(char **cmd);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, char *cmd);
-void	cmd_pwd();
+void	cmd_pwd(void);
 void	cmd_env(t_env g_env);
-void 	cmd_exec(char *cmd, char **env);
+void	cmd_exec(char *cmd, char **env);
 
 #endif
