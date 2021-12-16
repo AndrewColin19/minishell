@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 14:26:14 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:39:31 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	exec(char **cmds)
 	i = -1;
 	while (cmds[++i])
 	{
-		if (ft_strncmp(cmds[i], ECHO, ft_strlen(ECHO)) == 0 && cmds[i][ft_strlen(ECHO)] == ' ')
+		if (check_cmd(cmds[i], ECHO, 1))
 			cmd_echo(cmds[i]);
-		else if (ft_strncmp(cmds[i], PWD, ft_strlen(cmds[i])) == 0)
+		else if (check_cmd(cmds[i], PWD, 0))
 			cmd_pwd();
-		else if (ft_strncmp(cmds[i], ENV, ft_strlen(cmds[i])) == 0)
+		else if (check_cmd(cmds[i], ENV, 0))
+			cmd_env(g_env);
+		else if (check_cmd(cmds[i], CD, 0))
 			cmd_env(g_env);
 		else
 			cmd_exec(cmds[i], g_env.var_env);

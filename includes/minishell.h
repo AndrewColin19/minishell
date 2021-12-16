@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 14:25:49 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:39:28 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_env
 }	t_env;
 
 char	**parse(char *cmd);
+int		check_cmd(char *cmd, char *kw, int op);
 /*-------------uitls------------*/
 char	**ft_split(const char *s, char c);
 void	*ft_calloc(size_t nmemb, size_t size);

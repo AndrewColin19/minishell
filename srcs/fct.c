@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2021/12/16 14:15:30 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:18:05 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,10 @@ void	cmd_env(t_env g_env)
 	while (g_env.var_env[++i])
 		printf("%s\n", g_env.var_env[i]);
 	add_history(ENV);
+}
+
+void cmd_cd(t_env *g_env, char *cmd)
+{
+	(void) g_env;
+	(void) cmd;
 }
