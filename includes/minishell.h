@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 # define PATH_BUF 4096
 
