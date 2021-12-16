@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:56:28 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 15:39:21 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:40:44 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int	check_cmd(char *cmd, char *kw, int op)
 		if (cmd[i] == '-' && cmd[i - 1] == ' ' && cmd[i + 1] != ' ' && !op)
 			return (0);
 	}
-	printf("passe\n");
 	return (1);
 }
