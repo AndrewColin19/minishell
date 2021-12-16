@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 15:39:28 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:53:51 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	put_error(char *er, char *cmd);
 /*-------------frees------------*/
 void	free_cmds(char **cmd);
 /*--------------fct-------------*/
-void	cmd_echo(char *cmd);
+void	cmd_echo(int fd, char *cmd);
 void	cmd_pwd();
 void	cmd_env(t_env g_env);
 void 	cmd_exec(char *cmd, char **env);

@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 15:39:31 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:53:59 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exec(char **cmds)
 	while (cmds[++i])
 	{
 		if (check_cmd(cmds[i], ECHO, 1))
-			cmd_echo(cmds[i]);
+			cmd_echo(0, cmds[i]);
 		else if (check_cmd(cmds[i], PWD, 0))
 			cmd_pwd();
 		else if (check_cmd(cmds[i], ENV, 0))
