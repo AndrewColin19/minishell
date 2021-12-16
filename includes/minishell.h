@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 16:28:01 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:42:20 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 typedef struct s_env
 {
-	char	path[PATH_BUF];
+	int		size_env;
 	char	**var_env;
 }	t_env;
 
@@ -53,8 +53,8 @@ void	put_error(char *er, char *cmd);
 void	free_cmds(char **cmd);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, char *cmd);
-void	cmd_pwd(void);
-void	cmd_env(t_env g_env);
+void	cmd_pwd(int fd);
+void	cmd_env(int fd, t_env g_env);
 void	cmd_exec(char *cmd, char **env);
 
 #endif

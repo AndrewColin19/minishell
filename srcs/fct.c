@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2021/12/16 16:20:35 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 16:43:27 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,26 @@ void	cmd_echo(int fd, char *cmd)
 	add_history(cmd);
 }
 
-void	cmd_pwd(void)
+void	cmd_pwd(int fd)
 {
 	char	path[PATH_BUF];
 
 	if (path != NULL)
-		printf("%s\n", getcwd(path, PATH_BUF));
+		putstr_endl(fd, getcwd(path, PATH_BUF));
 	add_history(PWD);
 }
 
-void	cmd_env(t_env g_env)
+void	cmd_env(int fd, t_env g_env)
 {
 	int	i;
 
 	i = -1;
 	while (g_env.var_env[++i])
-		printf("%s\n", g_env.var_env[i]);
+		putstr_endl(fd, g_env.var_env[i]);
 	add_history(ENV);
 }
 
-void	cmd_cd(t_env *g_env, char *cmd)
+void	cmd_cd(int fd, t_env *g_env, char *cmd)
 {
 	(void) g_env;
 	(void) cmd;
