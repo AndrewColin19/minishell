@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   writter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:04:49 by andrew            #+#    #+#             */
-/*   Updated: 2021/12/11 11:42:29 by andrew           ###   ########.fr       */
+/*   Updated: 2021/12/16 14:26:55 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,24 @@ void	putstr(int fd, char *s)
 void	putstr_endl(int fd, char *s)
 {
 	putstr(fd, s);
-	write(fd, "\n", 1);		
+	write(fd, "\n", 1);
+}
+
+void	put_error(char *er, char *cmd)
+{
+	int	i;
+	int j;
+
+	if (cmd == NULL)
+		printf("%s\n", er);
+	else
+	{
+		i = -1;
+		while (cmd[++i] != ' ')
+			;
+		j = -1; 
+		while (++j < i)
+			printf("%c", cmd[j]);
+		printf("%s\n", er);	
+	}
 }

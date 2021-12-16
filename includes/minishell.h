@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/15 15:31:52 by acolin           ###   ########.fr       */
+/*   Updated: 2021/12/16 14:25:49 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 # define ECHO "echo"
 # define PWD "pwd"
 # define CD "cd"
+# define ENV "env"
 
 typedef struct s_env
 {
-	char path[PATH_BUF];
-	char **variable;
+	char	path[PATH_BUF];
+	char	**var_env;
 }	t_env;
-
 
 char	**parse(char *cmd);
 /*-------------uitls------------*/
@@ -43,10 +43,12 @@ char	*ft_strjoin(char const *s1, char const *s2);
 /*-------------write------------*/
 void	putstr(int fd, char *s);
 void	putstr_endl(int fd, char *s);
+void	put_error(char *er, char *cmd);
 /*-------------frees------------*/
 void	free_cmds(char **cmd);
 /*--------------fct-------------*/
 void	cmd_echo(char *cmd);
-void	cmd_pwd(char *path);
+void	cmd_pwd();
+void	cmd_env(t_env g_env);
 
 #endif
