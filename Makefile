@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS =  srcs/main.c srcs/utils/ft_split.c srcs/utils/ft_calloc.c \
 		srcs/ft_parse.c srcs/writter.c srcs/utils/str.c \
-		srcs/utils/ft_free.c srcs/fct.c
+		srcs/utils/ft_free.c srcs/fct.c srcs/exec_cmd.c
 
 OBJS = ${SRCS:.c=.o}
 all: ${NAME}

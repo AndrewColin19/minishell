@@ -28,7 +28,7 @@ void	exec(char **cmds)
 		else if (ft_strncmp(cmds[i], ENV, ft_strlen(cmds[i])) == 0)
 			cmd_env(g_env);
 		else
-			put_error(": command not found", cmds[i]);
+			cmd_exec(cmds[i], g_env.var_env);
 	}
 }
 

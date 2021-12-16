@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -26,6 +27,7 @@
 # define PWD "pwd"
 # define CD "cd"
 # define ENV "env"
+# define CMD_PATH "/bin/"
 
 typedef struct s_env
 {
@@ -50,5 +52,6 @@ void	free_cmds(char **cmd);
 void	cmd_echo(char *cmd);
 void	cmd_pwd();
 void	cmd_env(t_env g_env);
+void 	cmd_exec(char *cmd, char **env);
 
 #endif
