@@ -17,8 +17,10 @@ t_env	g_env;
 void	exec(char **cmds)
 {
 	int		i;
+	char 	*result;
 
 	i = -1;
+	result = NULL;
 	while (cmds[++i])
 	{
 		if (check_cmd(cmds[i], ECHO, 1))
@@ -30,8 +32,9 @@ void	exec(char **cmds)
 		else if (check_cmd(cmds[i], CD, 0))
 			cmd_cd(&g_env, cmds[i]);
 		else
-			cmd_exec(cmds[i], g_env.var_env);
+			result = cmd_exec(cmds[i], g_env.var_env, result);
 	}
+	printf(result);
 }
 
 int	main(int argc, char *argv[], char **ev)
