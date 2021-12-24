@@ -61,7 +61,8 @@ int		set_var_env(t_env *env, char *kw, char *value);
 void	cmd_echo(int fd, char *cmd);
 void	cmd_pwd(int fd, t_env *env);
 void	cmd_env(int fd, t_env g_env);
-char	*cmd_exec(char *cmd, char **env, char *input);
+void	cmd_exec(char *cmd, char **env, char *input, int fd);
 void	cmd_cd(t_env *env, char *cmd);
+char 	*read_result(int fd);
 
 #endif

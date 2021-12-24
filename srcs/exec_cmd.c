@@ -29,15 +29,12 @@ char 	*read_result(int fd)
 	return (result);
 }
 
-char 	*ft_exec(char *path, char **splited, char **env, char *input)
+void	ft_exec(char *path, char **splited, char **env, char *input, int fd)
 {
-	char 	*str;
 	pid_t	pid;
 	int		status;
-	int 	pipes[2];
 	int 	p_input[2];
 
-	pipe(pipes);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -49,22 +46,15 @@ char 	*ft_exec(char *path, char **splited, char **env, char *input)
 			close(p_input[0]);
 			close(p_input[1]);
 		}
-		dup2(pipes[1], STDOUT_FILENO);
-		close(pipes[1]);
-		close(pipes[0]);
+		dup2(fd, STDOUT_FILENO);
 		if (execve(path, splited, env) == -1)
 			printf("Error\n");
 	}
 	else
-	{
-		close(pipes[1]);
-		str = read_result(pipes[0]);
 		waitpid(pid, &status, 0);
-	}
-	return (str);
 }
 
-char	*cmd_exec(char *cmd, char **env, char *input)
+void	cmd_exec(char *cmd, char **env, char *input, int fd)
 {
 	char	**splited;
 	char	*path;
@@ -74,8 +64,8 @@ char	*cmd_exec(char *cmd, char **env, char *input)
 	if (open(path, O_RDONLY) == -1)
 	{
 		put_error(": command not found", cmd);
-		return (NULL);
+		return ;
 	}
 	else
-		return (ft_exec(path, splited, env, input));
+		ft_exec(path, splited, env, input, fd);
 }

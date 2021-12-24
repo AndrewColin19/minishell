@@ -17,22 +17,26 @@ t_env	g_env;
 void	exec(char **cmds)
 {
 	int		i;
+	int 	pipes[2];
 	char 	*result;
 
 	i = -1;
 	result = NULL;
 	while (cmds[++i])
 	{
+		pipe(pipes);
 		if (check_cmd(cmds[i], ECHO, 1))
-			cmd_echo(0, cmds[i]);
+			cmd_echo(pipes[1], cmds[i]);
 		else if (check_cmd(cmds[i], PWD, 0))
-			cmd_pwd(0, &g_env);
+			cmd_pwd(pipes[1], &g_env);
 		else if (check_cmd(cmds[i], ENV, 0))
-			cmd_env(0, g_env);
+			cmd_env(pipes[1], g_env);
 		else if (check_cmd(cmds[i], CD, 0))
 			cmd_cd(&g_env, cmds[i]);
 		else
-			result = cmd_exec(cmds[i], g_env.var_env, result);
+			cmd_exec(cmds[i], g_env.var_env, result, pipes[1]);
+		close(pipes[1]);
+		result = read_result(pipes[0]);
 	}
 	printf(result);
 }
