@@ -29,13 +29,14 @@
 # define PWD "pwd"
 # define CD "cd"
 # define ENV "env"
-# define CMD_PATH "/bin/"
 
 typedef struct s_env
 {
 	int		size_env;
 	char	**var_env;
 }	t_env;
+
+t_env	g_env;
 
 char	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
@@ -61,7 +62,7 @@ int		set_var_env(t_env *env, char *kw, char *value);
 void	cmd_echo(int fd, char *cmd);
 void	cmd_pwd(int fd, t_env *env);
 void	cmd_env(int fd, t_env g_env);
-void	cmd_exec(char *cmd, char **env, char *input, int fd);
+void	cmd_exec(char *cmd, char **env, int *fd, int last);
 void	cmd_cd(t_env *env, char *cmd);
 char 	*read_result(int fd);
 

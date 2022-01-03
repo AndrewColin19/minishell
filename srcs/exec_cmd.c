@@ -29,24 +29,17 @@ char 	*read_result(int fd)
 	return (result);
 }
 
-void	ft_exec(char *path, char **splited, char **env, char *input, int fd)
+void	ft_exec(char *path, char **splited, char **env, int *fd, int last)
 {
 	pid_t	pid;
 	int		status;
-	int 	p_input[2];
 
 	pid = fork();
 	if (pid == 0)
 	{
-		if (input != NULL)
-		{
-			pipe(p_input);
-			dup2(p_input[0], STDIN_FILENO);
-			write(p_input[1], input, ft_strlen(input));
-			close(p_input[0]);
-			close(p_input[1]);
-		}
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd[1], STDIN_FILENO);
+		if (!last)
+			dup2(fd[0], STDOUT_FILENO);
 		if (execve(path, splited, env) == -1)
 			printf("Error\n");
 	}
@@ -54,18 +47,42 @@ void	ft_exec(char *path, char **splited, char **env, char *input, int fd)
 		waitpid(pid, &status, 0);
 }
 
-void	cmd_exec(char *cmd, char **env, char *input, int fd)
+char	*get_exec_path(char *cmd, char *path, int *exist)
+{
+	char	**splited_path;
+	int		i;
+
+	i = 0;
+	splited_path = ft_split(get_var_env(&g_env, "PATH"), ':');
+	while (splited_path[i])
+	{
+		splited_path[i] = ft_strjoin(splited_path[i], "/");
+		path = ft_strjoin(splited_path[i], cmd);
+		if (open(path, O_RDONLY) > -1)
+		{
+			*exist = 1;
+			return (path);
+		}
+		i++;
+	}
+	*exist = 0;
+	return (NULL);
+}
+
+void	cmd_exec(char *cmd, char **env, int *fd, int last)
 {
 	char	**splited;
 	char	*path;
+	int		exist;
 
 	splited = ft_split(cmd, ' ');
-	path = ft_strjoin(CMD_PATH, splited[0]);
-	if (open(path, O_RDONLY) == -1)
+	exist = 0;
+	path = NULL;
+	path = get_exec_path(splited[0], path, &exist);
+	if (exist == 0)
 	{
 		put_error(": command not found", cmd);
 		return ;
 	}
-	else
-		ft_exec(path, splited, env, input, fd);
+	ft_exec(path, splited, env, fd, last);
 }

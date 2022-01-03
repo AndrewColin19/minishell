@@ -12,33 +12,32 @@
 
 #include "../includes/minishell.h"
 
-t_env	g_env;
-
 void	exec(char **cmds)
 {
 	int		i;
-	int 	pipes[2];
-	char 	*result;
+	int 	pipes[1][2];
+	int		fd;
 
 	i = -1;
-	result = NULL;
-	while (cmds[++i])
+	while (cmds[++i] && cmds[i + 1])
 	{
-		pipe(pipes);
+		if (i != 0)
+			fd = pipes[0][0];
+		pipe(pipes[0]);
 		if (check_cmd(cmds[i], ECHO, 1))
-			cmd_echo(pipes[1], cmds[i]);
+			cmd_echo(pipes[0][1], cmds[i]);
 		else if (check_cmd(cmds[i], PWD, 0))
-			cmd_pwd(pipes[1], &g_env);
+			cmd_pwd(pipes[0][1], &g_env);
 		else if (check_cmd(cmds[i], ENV, 0))
-			cmd_env(pipes[1], g_env);
+			cmd_env(pipes[0][1], g_env);
 		else if (check_cmd(cmds[i], CD, 0))
 			cmd_cd(&g_env, cmds[i]);
 		else
-			cmd_exec(cmds[i], g_env.var_env, result, pipes[1]);
-		close(pipes[1]);
-		result = read_result(pipes[0]);
+			cmd_exec(cmds[i], g_env.var_env, pipes[0], 0);
+		close(pipes[0][1]);
+		//result = read_result(pipes[0][0]);
 	}
-	printf(result);
+	cmd_exec(cmds[i], g_env.var_env, pipes[0], 1);
 }
 
 int	main(int argc, char *argv[], char **ev)
