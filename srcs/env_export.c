@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:01 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 12:00:30 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/04 13:40:05 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_char(char *cmd, size_t start, size_t end)
 	return (deb);
 }
 
-void insert(char **cmd, char *var, size_t start, size_t end)
+void insert(char **cmd, char *var, size_t *start, size_t end)
 {
 	char *debut;
 	char *fin;
@@ -39,7 +39,8 @@ void insert(char **cmd, char *var, size_t start, size_t end)
 	
 	if (!var)
 		var = "";
-	debut = get_char(*cmd, 0, start);
+	printf("insert : cmd = %s var = %s\n", *cmd, var);
+	debut = get_char(*cmd, 0, *start);
 	fin = get_char(*cmd, end, ft_strlen(*cmd));
 	if (fin)
 	{
@@ -48,6 +49,7 @@ void insert(char **cmd, char *var, size_t start, size_t end)
 	}
 	else
 		*cmd = ft_strjoin(debut, var);
+	*start += ft_strlen(var);
 }
 
 void	export_var(char **cmds)
@@ -62,12 +64,13 @@ void	export_var(char **cmds)
 		j = -1;
 		while (cmds[i][++j])
 		{
+			printf("%s\n", cmds[i]);
 			if (cmds[i][++j] == '$')
 			{
 				k = j;
-				while (cmds[i][++k] != ' ' && cmds[i][++k])
+				while (ft_isalnum(cmds[i][++k]))
 					;
-				insert(&cmds[i], get_var_env(&g_env, get_char(cmds[i], j + 1, k)), j, k);
+				insert(&cmds[i], get_var_env(&g_env, get_char(cmds[i], j + 1, k)), &j, k);
 			}
 		}
 	}

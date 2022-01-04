@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/20 16:15:06 by andrew           ###   ########.fr       */
+/*   Updated: 2022/01/04 13:22:41 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*get_var_env(t_env *env, char *kw)
 		{
 			while (env->var_env[i][j] == kw[j])
 			{
-				if (j == s_kw - 1)
+				if (j == s_kw - 1 && env->var_env[i][j + 1] == '=')
 					return (env->var_env[i] + j + 2);
 				j++;
 			}
