@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 12:00:51 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/04 17:55:26 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ void	exec(char **cmds)
 	int		i;
 	int 	pipes[2];
 	int		fd;
+	char	*redirect;
 
 	i = -1;
 	fd = 0;
 	while (cmds[++i] && cmds[i + 1])
 	{
+		redirect = check_redirection(&cmds[i]);
 		if (i != 0)
 			fd = pipes[0];
 		else
@@ -43,6 +45,8 @@ void	exec(char **cmds)
 		pipe(pipes);
 		select_cmd(cmds[i], fd, pipes[1]);
 		close(pipes[1]);
+		if (redirect != NULL)
+			pipes[0] = write_redirection(pipes[0], redirect);
 	}
 	select_cmd(cmds[i], pipes[0], 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 16:53:17 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/04 17:57:42 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ void	cmd_env(int fd, t_env g_env);
 void	cmd_exec(char *cmd, int in, int out);
 void	cmd_cd(t_env *env, char *cmd);
 char 	*read_result(int fd);
+/*--------------redirection------*/
+int		write_redirection(int input, char *file);
+char	*check_redirection(char **cmd);
 
 #endif

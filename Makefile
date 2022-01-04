@@ -6,7 +6,7 @@ SRCS =  srcs/main.c srcs/utils/ft_split.c srcs/utils/ft_calloc.c \
 		srcs/ft_parse.c srcs/writter.c srcs/utils/str.c \
 		srcs/utils/ft_free.c srcs/fct.c srcs/exec_cmd.c \
 		srcs/check_cmd.c srcs/env.c srcs/env_export.c \
-		srcs/utils/ft_isalnum.c
+		srcs/utils/ft_isalnum.c srcs/redirections.c
 
 OBJS = ${SRCS:.c=.o}
 all: ${NAME}
