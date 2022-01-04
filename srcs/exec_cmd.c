@@ -12,34 +12,18 @@
 
 #include "../includes/minishell.h"
 
-char 	*read_result(int fd)
-{
-	char 	*result;
-	char 	*buf;
-
-	result = malloc(2);
-	buf = malloc(2);
-	result[1] = '\0';
-	buf[1] = '\0';
-	if (read(fd, result, 1) <= 0)
-		return (NULL);
-	while (read(fd, buf, 1) > 0)
-		result = ft_strjoin(result, buf);
-	close(fd);
-	return (result);
-}
-
-void	ft_exec(char *path, char **splited, char **env, int *fd, int last)
+void	ft_exec(char *path, char **splited, int in, int out)
 {
 	pid_t	pid;
 	int		status;
+	char	**env;
 
+	env = g_env.var_env;
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(fd[1], STDIN_FILENO);
-		if (!last)
-			dup2(fd[0], STDOUT_FILENO);
+		dup2(in, STDIN_FILENO);
+		dup2(out, STDOUT_FILENO);
 		if (execve(path, splited, env) == -1)
 			printf("Error\n");
 	}
@@ -69,7 +53,7 @@ char	*get_exec_path(char *cmd, char *path, int *exist)
 	return (NULL);
 }
 
-void	cmd_exec(char *cmd, char **env, int *fd, int last)
+void	cmd_exec(char *cmd, int in, int out)
 {
 	char	**splited;
 	char	*path;
@@ -84,5 +68,5 @@ void	cmd_exec(char *cmd, char **env, int *fd, int last)
 		put_error(": command not found", cmd);
 		return ;
 	}
-	ft_exec(path, splited, env, fd, last);
+	ft_exec(path, splited, in, out);
 }

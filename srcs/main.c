@@ -12,32 +12,39 @@
 
 #include "../includes/minishell.h"
 
+void	select_cmd(char *cmd, int in, int out)
+{
+	if (check_cmd(cmd, ECHO, 1))
+		cmd_echo(out, cmd);
+	else if (check_cmd(cmd, PWD, 0))
+		cmd_pwd(out, &g_env);
+	else if (check_cmd(cmd, ENV, 0))
+		cmd_env(out, g_env);
+	else if (check_cmd(cmd, CD, 0))
+		cmd_cd(&g_env, cmd);
+	else
+		cmd_exec(cmd, in, out);
+}
+
 void	exec(char **cmds)
 {
 	int		i;
-	int 	pipes[1][2];
+	int 	pipes[2];
 	int		fd;
 
 	i = -1;
+	fd = 0;
 	while (cmds[++i] && cmds[i + 1])
 	{
 		if (i != 0)
-			fd = pipes[0][0];
-		pipe(pipes[0]);
-		if (check_cmd(cmds[i], ECHO, 1))
-			cmd_echo(pipes[0][1], cmds[i]);
-		else if (check_cmd(cmds[i], PWD, 0))
-			cmd_pwd(pipes[0][1], &g_env);
-		else if (check_cmd(cmds[i], ENV, 0))
-			cmd_env(pipes[0][1], g_env);
-		else if (check_cmd(cmds[i], CD, 0))
-			cmd_cd(&g_env, cmds[i]);
+			fd = pipes[0];
 		else
-			cmd_exec(cmds[i], g_env.var_env, pipes[0], 0);
-		close(pipes[0][1]);
-		//result = read_result(pipes[0][0]);
+			fd = 0;
+		pipe(pipes);
+		select_cmd(cmds[i], fd, pipes[1]);
+		close(pipes[1]);
 	}
-	cmd_exec(cmds[i], g_env.var_env, pipes[0], 1);
+	select_cmd(cmds[i], pipes[0], 1);
 }
 
 int	main(int argc, char *argv[], char **ev)
