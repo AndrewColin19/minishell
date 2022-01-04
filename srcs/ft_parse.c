@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 15:19:11 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/16 13:56:23 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/04 13:10:54 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	**parse(char *cmd)
 {
 	char	**cmd_tab;
 
+	add_history(cmd);
 	if (!check_pip(cmd))
 		return (NULL);
 	cmd_tab = ft_split(cmd, '|');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2021/12/20 16:29:39 by andrew           ###   ########.fr       */
+/*   Updated: 2022/01/04 13:11:12 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	cmd_echo(int fd, char *cmd)
 		putstr_endl(fd, cmd + i);
 	else
 		putstr(fd, cmd + i);
-	add_history(cmd);
 }
 
 void	cmd_pwd(int fd, t_env *env)
@@ -43,7 +42,6 @@ void	cmd_pwd(int fd, t_env *env)
 	path = get_var_env(env, "PWD");
 	if (path != NULL)
 		putstr_endl(fd, path);
-	add_history(PWD);
 }
 
 void	cmd_env(int fd, t_env g_env)
@@ -53,7 +51,6 @@ void	cmd_env(int fd, t_env g_env)
 	i = -1;
 	while (g_env.var_env[++i])
 		putstr_endl(fd, g_env.var_env[i]);
-	add_history(ENV);
 }
 
 void	cmd_cd(t_env *g_env, char *cmd)
