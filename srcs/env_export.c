@@ -6,48 +6,51 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:01 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/03 17:06:27 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/04 12:00:30 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_kw(char *cmd, size_t start, size_t end)
+char	*get_char(char *cmd, size_t start, size_t end)
 {
-	char	*kw;
-	size_t		i;
-	
-	kw = malloc(end - start + 1);
-	if (!kw)
+	size_t	i;
+	size_t	j;
+	char	*deb;
+
+	if (end <= start)
 		return (NULL);
-	i = 0;
-	while (start++ < end)
-		kw[i++] = cmd[start];
-	return (kw);
+	deb = ft_calloc(1, end - start + 1);
+	if (!deb)
+		return (NULL);
+	i = start;
+	j = 0;
+	while (i < end)
+		deb[j++] = cmd[i++];
+	deb[j] = '\0';
+	return (deb);
 }
 
-void	replace_var(char **cmds, size_t index, char *var, size_t start)
+void insert(char **cmd, char *var, size_t start, size_t end)
 {
-	char	*cmd;
-	char	*ncmd;
-	size_t		j;
-	size_t		i;
-
-	cmd = ft_strdup(cmds[index]);
-	free(cmds[index]);
-	ncmd = ft_calloc(1, ft_strlen(var) + start + 1);
-	i = -1;
-	while (++i < start)
-		ncmd[i] = cmd[i];
-	j = -1;
-	while (++j < ft_strlen(var))
-		ncmd[i++] = var[j];
-	ncmd[i] = '\0';
-	cmds[index] = ncmd;
-	free(cmd);
+	char *debut;
+	char *fin;
+	char *tmp;
+	
+	if (!var)
+		var = "";
+	debut = get_char(*cmd, 0, start);
+	fin = get_char(*cmd, end, ft_strlen(*cmd));
+	if (fin)
+	{
+		tmp = ft_strjoin(debut, var);
+		*cmd = ft_strjoin(tmp, fin);
+	}
+	else
+		*cmd = ft_strjoin(debut, var);
 }
 
-void	export_var(t_env *env, char **cmds)
+void	export_var(char **cmds)
 {
 	size_t		i;
 	size_t		j;
@@ -64,7 +67,7 @@ void	export_var(t_env *env, char **cmds)
 				k = j;
 				while (cmds[i][++k] != ' ' && cmds[i][++k])
 					;
-				replace_var(cmds, i, get_var_env(env, get_kw(cmds[i], j, k)), j);
+				insert(&cmds[i], get_var_env(&g_env, get_char(cmds[i], j + 1, k)), j, k);
 			}
 		}
 	}
