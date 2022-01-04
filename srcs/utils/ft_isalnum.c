@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 12:17:36 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 13:36:32 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/04 16:53:02 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ int	ft_isdigit(int c)
 int	ft_isalnum(int c)
 {
 	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
+int	ft_isascii(int c)
+{
+	return (c >= 0 && c <= 127);
 }
