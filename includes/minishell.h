@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/05 13:28:00 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/05 14:55:35 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
 /*-------------uitls------------*/
 char	**ft_split(const char *s, char c);
+char	**ft_split_mod(const char *s, char c);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);

@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 15:19:11 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 13:10:54 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/05 16:33:44 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	ft_rm_space_start(char **cmd_tab)
 	int	i;
 	int	j;
 
+	if (!cmd_tab)
+		return ;
 	i = 0;
 	while (cmd_tab[i])
 	{
@@ -55,7 +57,7 @@ char	**parse(char *cmd)
 	add_history(cmd);
 	if (!check_pip(cmd))
 		return (NULL);
-	cmd_tab = ft_split(cmd, '|');
+	cmd_tab = ft_split_mod(cmd, '|');
 	ft_rm_space_start(cmd_tab);
 	return (cmd_tab);
 }
