@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 13:10:35 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/05 15:24:32 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:29:02 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	delete_redirection(char **cmd, char c)
 	while (cmd[0][j] == c || cmd[0][j] == ' ')
 		j++;
 	while (cmd[0][j] != ' ')
+		j++;
+	while (cmd[0][j] == ' ')
 		j++;
 	nb_char = j - i;
 	while (nb_char--)
