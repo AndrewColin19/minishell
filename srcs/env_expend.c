@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:01 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 16:55:21 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/05 13:27:28 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	insert(char **cmd, char *var, size_t *start, size_t end)
 	*start += ft_strlen(var) - 1;
 }
 
-void	export_var(char **cmds)
+void	expend_var(char **cmds)
 {
 	size_t	i;
 	size_t	j;
