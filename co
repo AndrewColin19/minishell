@@ -1,0 +1,4 @@
+includes
+libreadline.a
+main.c
+minishell
