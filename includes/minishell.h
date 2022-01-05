@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/05 14:55:35 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/05 16:36:15 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);
+int     ft_str_contain(char *substr, char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 /*-------------write------------*/
@@ -71,6 +72,9 @@ void	cmd_cd(t_env *env, char *cmd);
 char 	*read_result(int fd);
 /*--------------redirection------*/
 int		write_redirection(int input, int fd);
-int		check_redirection(char **cmd);
+int		check_redirection_o(char **cmd);
+int		check_redirection_i(char **cmd);
+int		read_file(char *cmd);
+int		heredoc(char *cmd);
 
 #endif
