@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrew <andrew@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 14:25:54 by acolin            #+#    #+#             */
-/*   Updated: 2021/12/18 13:31:30 by andrew           ###   ########.fr       */
+/*   Updated: 2022/01/05 14:41:24 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,26 @@ char	*ft_strdup(const char *s)
 	}
 	str[i] = '\0';
 	return (str);
+}
+
+int     ft_str_contain(char *substr, char *str)
+{
+	int 	i;
+	int     j;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == substr[0])
+		{
+			j = 0;
+			while (substr[j] && str[i + j]
+				&& substr[j] == str[i + j])
+				j++;
+			if (substr[j] == '\0')
+				return (1);
+		}
+		i++;
+	}
+	return (0);
 }
