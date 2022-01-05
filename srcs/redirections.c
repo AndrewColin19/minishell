@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 13:10:35 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/04 17:59:21 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/05 11:34:12 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int     ft_str_contain(char *substr, char *str)
 	return (0);
 }
 
-char	*ft_create_file(char *cmd, int ap)
+int		ft_create_file(char *cmd, int ap)
 {
 	char	*file;
 	int		i;
@@ -52,11 +52,11 @@ char	*ft_create_file(char *cmd, int ap)
 	j = 0;
 	while (cmd[i] != ' ')
 		file[j++] = cmd[i++];
+	open(file, O_CREAT, S_IRWXU);
 	if (ap)
-		open(file, O_APPEND | O_CREAT, S_IRWXU);
+		return (open(file, O_APPEND | O_RDWR));
 	else
-		open(file, O_TRUNC | O_CREAT, S_IRWXU);
-	return (file);
+		return (open(file, O_TRUNC | O_RDWR));
 }
 
 void	delete_redirection(char **cmd)
@@ -85,9 +85,9 @@ void	delete_redirection(char **cmd)
 	}
 }
 
-char	*check_redirection(char **cmd)
+int		check_redirection(char **cmd)
 {
-	char	*file;
+	int	file;
 
     if (ft_str_contain(">>", cmd[0]))
     {
@@ -98,7 +98,7 @@ char	*check_redirection(char **cmd)
     else if (ft_str_contain("<<", cmd[0]))
     {
 		//Heredoc (read input until << xxxx)
-		return (NULL);
+		return (0);
     }
     else if (ft_str_contain(">", cmd[0]))
     {
@@ -109,26 +109,17 @@ char	*check_redirection(char **cmd)
     else if (ft_str_contain("<", cmd[0]))
     {
         //ft_read_file();
-        return (NULL);
+        return (0);
     }
-	return (NULL);
+	return (0);
 }
 
-int		write_redirection(int input, char *file)
+int		write_redirection(int input, int fd)
 {
 	char	c;
-	int		pipes[2];
-	int		fd;
-
-	fd = open(file, O_RDWR);
-	pipe(pipes);
+	
 	while (read(input, &c, 1))
 		write(fd, &c, 1);
 	close(fd);
-	fd = open(file, O_RDWR);
-	while (read(fd, &c, 1))
-		write(pipes[1], &c, 1);
-	close(pipes[1]);
-	close(fd);
-	return (pipes[0]);
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 17:55:26 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/05 11:11:11 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,23 @@ void	exec(char **cmds)
 		redirect = check_redirection(&cmds[i]);
 		if (i != 0)
 			fd = pipes[0];
-		else
-			fd = 0;
 		pipe(pipes);
 		select_cmd(cmds[i], fd, pipes[1]);
 		close(pipes[1]);
 		if (redirect != NULL)
-			pipes[0] = write_redirection(pipes[0], redirect);
+			write_redirection(pipes[0], redirect);
 	}
-	select_cmd(cmds[i], pipes[0], 1);
+	redirect = check_redirection(&cmds[i]);
+	if (redirect != NULL)
+	{
+		fd = pipes[0];
+		pipe(pipes);
+		select_cmd(cmds[i], fd, pipes[1]);
+		close(pipes[1]);
+		write_redirection(pipes[0], redirect);
+	}
+	else
+		select_cmd(cmds[i], pipes[0], 1);
 }
 
 int	main(int argc, char *argv[], char **ev)
