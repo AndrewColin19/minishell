@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/06 09:51:22 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/06 09:57:38 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ void	select_cmd(char *cmd, int in, int out)
 		cmd_exec(cmd, in, out);
 }
 
-int		get_redirect_o(char **cmds, int i)
+int		get_redirect(char **cmds, int i, int fct (char **))
 {
-	int		redirect_out;
+	int		redirect;
 	int		tmp;
 
-	redirect_out = check_redirection_o(&cmds[i]);
-	tmp = check_redirection_o(&cmds[i]);
+	redirect = fct(&cmds[i]);
+	tmp = fct(&cmds[i]);
 	while (tmp)
 	{
-		redirect_out = tmp;
-		tmp = check_redirection_o(&cmds[i]);
+		redirect = tmp;
+		tmp = fct(&cmds[i]);
 	}
-	return (redirect_out);
+	return (redirect);
 }
 
 void	exec(char **cmds, int i, int in)
@@ -48,8 +48,8 @@ void	exec(char **cmds, int i, int in)
 	int		redirect_in;
 
 	pipe(pipes);
-	redirect_out = get_redirect_o(cmds, i);
-	redirect_in = check_redirection_i(&cmds[i]);
+	redirect_out = get_redirect(cmds, i, check_redirection_o);
+	redirect_in = get_redirect(cmds, i, check_redirection_i);
 	if (redirect_in)
 		in = redirect_in;
 	if (cmds[i + 1] || redirect_out)
