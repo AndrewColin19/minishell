@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/06 09:57:38 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/06 14:21:41 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,21 @@ void	exec(char **cmds, int i, int in)
 		select_cmd(cmds[i], in, 1);
 }
 
+void	interrupt_signal(int signal)
+{
+	(void) signal;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	quit_signal(int signum)
+{
+	(void) signum;
+	exit(0);
+}
+
 int	main(int argc, char *argv[], char **ev)
 {
 	char	**cmds;
@@ -82,6 +97,8 @@ int	main(int argc, char *argv[], char **ev)
 	(void) argc;
 	(void) argv;
 	init(ev, &g_env);
+	signal(SIGINT, interrupt_signal);
+	signal(SIGQUIT, quit_signal);
 	while (1)
 	{
 		cmds = parse(readline(SHELL_TEXT));

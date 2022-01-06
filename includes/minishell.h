@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/05 16:36:15 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/06 14:20:52 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,8 @@ int		check_redirection_o(char **cmd);
 int		check_redirection_i(char **cmd);
 int		read_file(char *cmd);
 int		heredoc(char *cmd);
+
+
+void	rl_replace_line(const char *text, int clear_undo);
 
 #endif
