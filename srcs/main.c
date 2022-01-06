@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/06 14:21:41 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/06 14:44:39 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,19 @@ void	quit_signal(int signum)
 int	main(int argc, char *argv[], char **ev)
 {
 	char	**cmds;
+	char	*line;
 
 	(void) argc;
 	(void) argv;
 	init(ev, &g_env);
 	signal(SIGINT, interrupt_signal);
-	signal(SIGQUIT, quit_signal);
+	signal(11, quit_signal);
 	while (1)
 	{
-		cmds = parse(readline(SHELL_TEXT));
-		if (cmds == NULL)
+		line = readline(SHELL_TEXT);
+		if (line[0])
 		{
-			printf("Error\n");
-			free_cmds(cmds);
-		}
-		else
-		{
+			cmds = parse(line);
 			expend_var(cmds);
 			exec(cmds, 0, 0);
 		}
