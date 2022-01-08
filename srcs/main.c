@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/06 14:44:39 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/08 01:23:15 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,14 @@ int	main(int argc, char *argv[], char **ev)
 	(void) argc;
 	(void) argv;
 	init(ev, &g_env);
-	signal(SIGINT, interrupt_signal);
-	signal(11, quit_signal);
+	//signal(SIGINT, interrupt_signal);
+	//signal(11, quit_signal);
 	while (1)
 	{
 		line = readline(SHELL_TEXT);
 		if (line[0])
 		{
 			cmds = parse(line);
-			expend_var(cmds);
 			exec(cmds, 0, 0);
 		}
 	}

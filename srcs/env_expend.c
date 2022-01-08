@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_export.c                                       :+:      :+:    :+:   */
+/*   env_expend.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:01 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/05 13:27:28 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/08 02:06:15 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,51 @@ void	insert(char **cmd, char *var, size_t *start, size_t end)
 	*start += ft_strlen(var) - 1;
 }
 
-void	expend_var(char **cmds)
+void	expend_var_quote(char **cmd, size_t *i, char quote)
 {
-	size_t	i;
+	size_t	k;
+
+	(*i)++;
+	while (cmd[0][*i] != quote)
+	{
+		if (cmd[0][*i] == '$' && ft_isalnum(cmd[0][*i + 1]))
+		{
+			if (cmd[0][*i + 1] == '$')
+				insert_code(cmd, i);
+			else
+			{
+				k = *i + 1;
+				while (ft_isalnum(cmd[0][k]))
+					k++;
+				insert(cmd, get_var_env(&g_env,
+					get_char(*cmd, *i + 1, k)), i, k);
+			}
+		}
+		(*i)++;
+	}
+}
+
+void	expend_var(char **cmd, size_t index)
+{
 	size_t	j;
 	size_t	k;
 
-	i = -1;
-	while (cmds[++i])
+	j = index;
+	while (cmd[0][j] && cmd[0][j] != ' ')
 	{
-		j = -1;
-		while (cmds[i][++j])
+		if (cmd[0][j] == '$' && ft_isalnum(cmd[0][j + 1]))
 		{
-			if (cmds[i][j] == '$' && ft_isalnum(cmds[i][j + 1]))
-			{	
-				if (cmds[i][j + 1] == '$')
-					insert_code(&cmds[i], &j);
-				else
-				{
-					k = j;
-					while (ft_isalnum(cmds[i][++k]))
-						;
-					insert(&cmds[i], get_var_env(&g_env,
-						get_char(cmds[i], j + 1, k)), &j, k);
-				}
-			}	
+			if (cmd[0][j + 1] == '$')
+				insert_code(cmd, &j);
+			else
+			{
+				k = j + 1;
+				while (ft_isalnum(cmd[0][k]))
+					k++;
+				insert(cmd, get_var_env(&g_env,
+					get_char(*cmd, j + 1, k)), &j, k);
+			}
 		}
+		j++;
 	}
 }
