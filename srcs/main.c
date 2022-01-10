@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+t_env	g_env = {0, NULL};
+
 void	select_cmd(char *cmd, int in, int out)
 {
 	if (check_cmd(cmd, ECHO, 1))

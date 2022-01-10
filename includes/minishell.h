@@ -36,7 +36,7 @@ typedef struct s_env
 	char	**var_env;
 }	t_env;
 
-t_env	g_env;
+extern t_env	g_env;
 
 char	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
