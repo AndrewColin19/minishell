@@ -14,25 +14,21 @@
 
 void	cmd_echo(int fd, char *cmd)
 {
-	int	ln;
-	int	i;
+    int i;
+    int ln;
 
-	i = 0;
-	ln = 1;
-	while (cmd[i] == ECHO[i])
-		i++;
-	i++;
-	if (cmd[i] == '-' && cmd[i + 1] == 'n')
-	{
-		ln = 0;
-		i += 2;
-	}
-	while (cmd[i] && cmd[i] == ' ')
-		i++;
-	if (ln)
-		putstr_endl(fd, cmd + i);
-	else
-		putstr(fd, cmd + i);
+    i = ft_strlen(ECHO) + 1;
+    ln = 1;
+    if (cmd[i] == '-' && is_only_n(cmd + i + 1))
+        ln = 0;
+    if (ln)
+        putstr_endl(fd, cmd + i);
+    else
+    {
+        while (cmd[i] && cmd[i] != ' ')
+            i++;
+        putstr(fd, cmd + i);
+    }   
 }
 
 void	cmd_pwd(int fd, t_env *env)

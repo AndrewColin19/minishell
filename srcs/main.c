@@ -98,8 +98,8 @@ int	main(int argc, char *argv[], char **ev)
 	(void) argc;
 	(void) argv;
 	init(ev, &g_env);
-	//signal(SIGINT, interrupt_signal);
-	//signal(11, quit_signal);
+	signal(SIGINT, interrupt_signal);
+	signal(11, quit_signal);
 	while (1)
 	{
 		line = readline(SHELL_TEXT);

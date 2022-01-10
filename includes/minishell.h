@@ -40,6 +40,7 @@ t_env	g_env;
 
 char	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
+int		is_only_n(char *cmd);
 /*-------------uitls------------*/
 char	**ft_split(const char *s, char c);
 char	**ft_split_mod(const char *s, char c);

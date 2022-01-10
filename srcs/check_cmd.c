@@ -12,6 +12,18 @@
 
 #include "../includes/minishell.h"
 
+int	is_only_n(char *cmd)
+{
+    int	i;
+
+    i = 0;
+	while(cmd[i] == 'n')
+	    i++;
+	if (cmd[i] != ' ' && cmd[i] != '\0')
+	    return (0);
+	return (1);
+}
+
 int	check_cmd(char *cmd, char *kw, int op)
 {
 	int	kw_size;

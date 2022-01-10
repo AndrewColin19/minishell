@@ -29,7 +29,6 @@ void	expend(char **cmd)
 			expend_var(cmd, i);
 		i++;
 	}
-	//echo "$LANG" $LANG '$LANG'
 }
 
 int	check_pip(char *cmd)
