@@ -80,7 +80,6 @@ char	**parse(char *cmd)
 	while (cmd_tab[++i])
 	{
 		expend(&cmd_tab[i]);
-		del_quote(cmd_tab[i]);
 	}
 	return (cmd_tab);
 }

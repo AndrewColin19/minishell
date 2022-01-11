@@ -55,6 +55,7 @@ int		ft_isascii(int c);
 /*--------------del--------------*/
 void	ft_rm_space_start(char **cmd_tab);
 void	remove_quote(char *cmd, char quote);
+void	del_quote(char *cmd);
 /*-------------write------------*/
 void	putstr(int fd, char *s);
 void	putstr_endl(int fd, char *s);

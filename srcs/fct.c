@@ -17,6 +17,7 @@ void	cmd_echo(int fd, char *cmd)
     int i;
     int ln;
 
+	del_quote(cmd);
     i = ft_strlen(ECHO) + 1;
     ln = 1;
     if (cmd[i] == '-' && is_only_n(cmd + i + 1))
@@ -54,6 +55,7 @@ void	cmd_cd(t_env *g_env, char *cmd)
 	int		i;
 	char	*path;
 	
+	del_quote(cmd);
 	i = 0;
 	while (cmd[i] && cmd[i] != ' ')
 		i++;

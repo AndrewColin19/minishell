@@ -58,8 +58,12 @@ void	cmd_exec(char *cmd, int in, int out)
 	char	**splited;
 	char	*path;
 	int		exist;
+	int		i;
 
-	splited = ft_split(cmd, ' ');
+	splited = ft_split_mod(cmd, ' ');
+	i = 0;
+	while (splited[i])
+		del_quote(splited[i++]);
 	exist = 0;
 	path = NULL;
 	path = get_exec_path(splited[0], path, &exist);
