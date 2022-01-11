@@ -92,12 +92,20 @@ int     ft_str_contain(char *substr, char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] == '\'' || str[i] == '\"') && str[i - 1] != '\\')
+		if (str[i] == '\'' || str[i] == '\"')
 		{
-			quote = str[i];
-			i++;
-			while (str[i] && str[i] != quote && str[i - 1] != '\\')
+			if (str[i - 1] != '\\')
+			{
+				quote = str[i];
 				i++;
+				while (str[i] && str[i] != quote)
+				{
+					if (str[i] == quote && str[i - 1] != '\\')
+						break ;
+					else
+						i++;
+				}
+			}
 		}
 		if (!ft_strncmp(str + i, substr, ft_strlen(substr)))
 			return (1);

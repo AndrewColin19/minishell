@@ -36,6 +36,24 @@ typedef struct s_env
 	char	**var_env;
 }	t_env;
 
+typedef	struct s_redir
+{
+	char 	*kw;
+	int 	type
+}				t_redir;
+
+typedef struct s_cmd
+{
+	char 	*cmd;
+	char 	**args;
+	t_redir	**redirections;
+}				t_cmd;
+
+typedef	struct s_line
+{
+	t_cmd	*cmds;
+}				t_line;
+
 extern t_env	g_env;
 
 char	**parse(char *cmd);

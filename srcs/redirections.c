@@ -22,11 +22,11 @@ int		ft_create_file(char *cmd, int ap)
 	while (cmd[i] == '>' || cmd[i] == ' ')
 		i++;
 	j = i;
-	while (cmd[j] != ' ' && cmd[j])
+	while (cmd[j] != ' ' && cmd[j] != '\0')
 		j++;
-	file = malloc(j - i + 2);
+	file = malloc(j - i);
 	j = 0;
-	while (cmd[i] != ' ' && cmd[i])
+	while (cmd[i] != ' ' && cmd[i] != '\0')
 		file[j++] = cmd[i++];
 	open(file, O_CREAT, S_IRWXU);
 	if (ap)
@@ -43,12 +43,20 @@ int 	inc_i(char *cmd, char c)
 	i = 0;
 	while (cmd[i] && cmd[i] != c)
 	{
-		if ((cmd[i] == '\'' || cmd[i] == '\"') && cmd[i - 1] != '\\')
+		if ((cmd[i] == '\'' || cmd[i] == '\"'))
 		{
-			quote = cmd[i];
-			i++;
-			while (cmd[i] && cmd[i] != quote && cmd[i - 1] != '\\')
+			if (cmd[i - 1] != '\\')
+			{
+				quote = cmd[i];
 				i++;
+				while (cmd[i] && cmd[i] != quote)
+				{
+					if (cmd[i] == quote && cmd[i - 1] != '\\')
+						break ;
+					else
+						i++;
+				}
+			}
 		}
 		i++;
 	}
