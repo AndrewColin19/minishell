@@ -39,7 +39,7 @@ typedef struct s_env
 typedef	struct s_redir
 {
 	char 	*kw;
-	int 	type
+	int 	type;
 }				t_redir;
 
 typedef struct s_cmd
