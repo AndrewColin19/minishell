@@ -87,20 +87,20 @@ char	*ft_strdup(const char *s)
 int     ft_str_contain(char *substr, char *str)
 {
 	int 	i;
-	int     j;
+	char	quote;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == substr[0])
+		if ((str[i] == '\'' || str[i] == '\"') && str[i - 1] != '\\')
 		{
-			j = 0;
-			while (substr[j] && str[i + j]
-				&& substr[j] == str[i + j])
-				j++;
-			if (substr[j] == '\0')
-				return (1);
+			quote = str[i];
+			i++;
+			while (str[i] && str[i] != quote && str[i - 1] != '\\')
+				i++;
 		}
+		if (!ft_strncmp(str + i, substr, ft_strlen(substr)))
+			return (1);
 		i++;
 	}
 	return (0);

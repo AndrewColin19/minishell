@@ -18,9 +18,7 @@ char    *get_file(char *cmd)
 	int		j;
 	char	*file;
 
-    i = 0;
-	while (cmd[i] != '<')
-		i++;
+    i = inc_i(cmd, '<');
 	while (cmd[i] == '<' || cmd[i] == ' ')
 		i++;
 	j = i;

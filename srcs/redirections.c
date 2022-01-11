@@ -18,17 +18,15 @@ int		ft_create_file(char *cmd, int ap)
 	int		i;
 	int		j;
 
-	i = 0;
-	while (cmd[i] != '>')
-		i++;
+	i = inc_i(cmd, '>');
 	while (cmd[i] == '>' || cmd[i] == ' ')
 		i++;
 	j = i;
-	while (cmd[j] != ' ')
+	while (cmd[j] != ' ' && cmd[j])
 		j++;
 	file = malloc(j - i + 2);
 	j = 0;
-	while (cmd[i] != ' ')
+	while (cmd[i] != ' ' && cmd[i])
 		file[j++] = cmd[i++];
 	open(file, O_CREAT, S_IRWXU);
 	if (ap)
@@ -37,21 +35,39 @@ int		ft_create_file(char *cmd, int ap)
 		return (open(file, O_TRUNC | O_RDWR));
 }
 
+int 	inc_i(char *cmd, char c)
+{
+	int 	i;
+	char 	quote;
+
+	i = 0;
+	while (cmd[i] && cmd[i] != c)
+	{
+		if ((cmd[i] == '\'' || cmd[i] == '\"') && cmd[i - 1] != '\\')
+		{
+			quote = cmd[i];
+			i++;
+			while (cmd[i] && cmd[i] != quote && cmd[i - 1] != '\\')
+				i++;
+		}
+		i++;
+	}
+	return (i);
+}
+
 void	delete_redirection(char **cmd, char c)
 {
 	int		i;
 	int		j;
 	int		nb_char;
 
-	i = 0;
-	while (cmd[0][i] != c)
-		i++;
+	i = inc_i(cmd[0], c);
 	j = i;
-	while (cmd[0][j] == c || cmd[0][j] == ' ')
+	while ((cmd[0][j] == c || cmd[0][j] == ' ') && cmd[0][j])
 		j++;
-	while (cmd[0][j] != ' ')
+	while (cmd[0][j] != ' ' && cmd[0][j])
 		j++;
-	while (cmd[0][j] == ' ')
+	while (cmd[0][j] == ' ' && cmd[0][j])
 		j++;
 	nb_char = j - i;
 	while (nb_char--)
@@ -73,6 +89,7 @@ int		check_redirection_o(char **cmd)
     {
         file = ft_create_file(cmd[0], 1);
 		delete_redirection(cmd, '>');
+		write(1, "1", 1);
 		return (file);
     }	
     else if (ft_str_contain(">", cmd[0]))

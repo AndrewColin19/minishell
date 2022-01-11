@@ -86,6 +86,7 @@ int		check_redirection_o(char **cmd);
 int		check_redirection_i(char **cmd);
 int		read_file(char *cmd);
 int		heredoc(char *cmd);
+int 	inc_i(char *cmd, char c);
 
 
 void	rl_replace_line(const char *text, int clear_undo);
