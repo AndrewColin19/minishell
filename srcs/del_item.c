@@ -83,7 +83,7 @@ void	remove_backslash(char *str)
 		if (str[i] == '\'')
 			skip(str, &i);
 		if (str[i] == '\\')
-			rm_char(str, i);
+			rm_char(str, i--);
 		i++;
 	}
 }

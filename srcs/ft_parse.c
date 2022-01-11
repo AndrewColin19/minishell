@@ -12,6 +12,24 @@
 
 #include "../includes/minishell.h"
 
+void	rm_space_end(char **cmds)
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	while (cmds[i])
+	{
+		j = ft_strlen(cmds[i]) - 1;
+		while (cmds[i][j] == ' ' && j > 0)
+		{
+			rm_char(cmds[i], j);
+			j -= 1;
+		}
+		i++;
+	}
+}
+
 void	expend(char **cmd)
 {
 	size_t	i;
@@ -88,6 +106,7 @@ char	**parse(char *cmd)
 	if (!cmd_tab)
 		return (NULL);
 	ft_rm_space_start(cmd_tab);
+	rm_space_end(cmd_tab);
 	i = 0;
 	while (cmd_tab[i])
 		expend(&cmd_tab[i++]);
