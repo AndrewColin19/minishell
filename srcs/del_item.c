@@ -35,29 +35,55 @@ void	ft_rm_space_start(char **cmd_tab)
 	}
 }
 
-void	remove_quote(char *cmd, char quote)
+void	rm_char(char *str, size_t index)
 {
-	int	as_quote;
-	int	i;
+	while (str[index])
+	{
+		str[index] = str[index + 1];
+		index++;
+	}
+}
+
+void	skip(char *str, size_t *i)
+{
+	char	c;
+
+	c = str[*i];
+	(*i)++;
+	while (str[*i] != c)
+		(*i)++;
+	(*i)++;
+}
+
+void	remove_backslash_in_quote(char *str, char quote)
+{
+	size_t	i;
+	(void) quote;
 
 	i = 0;
-	as_quote = 1;
-	while (as_quote != 0)
+	while (str[i])
 	{
-		as_quote = 0;
-		i = 0;
-		while (cmd[i] != '\0' && cmd[i] != quote)
-			i++;
-		if (cmd[i] == quote)
-		{
-			while (cmd[i] != '\0')
-			{
-				cmd[i] = cmd[i + 1];
-				i++;
-			}
-			as_quote = 1;
-		}
-		else
-			as_quote = 0;
+		if (str[i] == '\'')
+			skip(str, &i);
+		i++;
+		if (str[i] == '\\')
+			rm_char(str, i);
+	}
+}
+
+void	remove_backslash(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			skip(str, &i);
+		if (str[i] == '\'')
+			skip(str, &i);
+		if (str[i] == '\\')
+			rm_char(str, i);
+		i++;
 	}
 }

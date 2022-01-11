@@ -52,10 +52,14 @@ char	*ft_strdup(const char *s);
 int     ft_str_contain(char *substr, char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
+int		ft_isbackslashable(int c);
 /*--------------del--------------*/
 void	ft_rm_space_start(char **cmd_tab);
 void	remove_quote(char *cmd, char quote);
 void	del_quote(char *cmd);
+void	rm_char(char *str, size_t index);
+void	remove_backslash(char *str);
+void	remove_backslash_in_quote(char *str, char quote);
 /*-------------write------------*/
 void	putstr(int fd, char *s);
 void	putstr_endl(int fd, char *s);

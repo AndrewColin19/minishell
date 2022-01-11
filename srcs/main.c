@@ -108,7 +108,11 @@ int	main(int argc, char *argv[], char **ev)
 		if (line[0])
 		{
 			cmds = parse(line);
-			exec(cmds, 0, 0);
+			if (cmds)
+			{
+				exec(cmds, 0, 0);
+				free_cmds(cmds);
+			}
 		}
 	}
 }

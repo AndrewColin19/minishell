@@ -27,6 +27,8 @@ void	expend(char **cmd)
 			exp = 0;
 		if (cmd[0][i] == '$' && exp == 1)
 			expend_var(cmd, i);
+		if (cmd[0][i] == '\\')
+			i++;
 		i++;
 	}
 }
@@ -42,6 +44,8 @@ int	check_pip(char *cmd)
 			return (0);
 		if (cmd[i] == '&' && cmd[i + 1] == '&' && cmd[i + 2] == '&')
 			return (0);
+		if (cmd[i] == '\\' && cmd[i + 1] == '\0')
+			return (0);
 	}
 	return (1);
 }
@@ -49,21 +53,27 @@ int	check_pip(char *cmd)
 void	del_quote(char *cmd)
 {
 	size_t i;
-	size_t j;
 	char quote;
 
-	i = -1;
-	while (cmd[++i])
+	i = 0;
+	while (cmd[i])
 	{
-		if (cmd[i] == '"' || cmd[i] == '\'')
+		if ((cmd[i] == '"' && cmd[i - 1] != '\\') ||
+			(cmd[i] == '\'' && cmd[i - 1] != '\\'))
 		{
-			j = i;
-			quote = cmd[i++];
+			quote = cmd[i];
+			rm_char(cmd, i++);
 			while (cmd[i] != quote)
+			{
+				if (cmd[i] == '\\')
+					i++;
 				i++;
-			remove_quote(cmd, cmd[j]);
+			}
+			rm_char(cmd, i);
 		}
+		i++;
 	}
+	remove_backslash(cmd);
 }
 
 char	**parse(char *cmd)
@@ -75,11 +85,11 @@ char	**parse(char *cmd)
 	if (!check_pip(cmd))
 		return (NULL);
 	cmd_tab = ft_split_mod(cmd, '|');
+	if (!cmd_tab)
+		return (NULL);
 	ft_rm_space_start(cmd_tab);
-	i = -1;
-	while (cmd_tab[++i])
-	{
-		expend(&cmd_tab[i]);
-	}
+	i = 0;
+	while (cmd_tab[i])
+		expend(&cmd_tab[i++]);
 	return (cmd_tab);
 }

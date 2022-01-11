@@ -17,8 +17,16 @@ int	ft_split_sep(char c, char sep);
 static int	ignore_quote(const char *s, int *i, char quote)
 {
 	(*i)++;
-	while (s[*i] != quote && s[*i])
+	while (1)
+	{
+		if (s[*i] == '\\')
+			(*i) += 2;
+		if (s[*i] == quote)
+			break;
+		if (s[*i] == '\0')
+			break;
 		(*i)++;
+	}
 	if (s[*i] == '\0')
 		return (0);
 	return (1);
@@ -31,11 +39,11 @@ static int	ft_split_search(const char *s, char c)
 	j = 0;
 	while (s[j])
 	{
-		if (s[j] == '"')
+		if (s[j] == '"' && s[j - 1] != '\\')
 			ignore_quote(s, &j, '"');
-		else if (s[j] == '\'')
+		if (s[j] == '\'' && s[j - 1] != '\\')
 			ignore_quote(s, &j, '\'');
-		else if (ft_split_sep(s[j], c))
+		if (ft_split_sep(s[j], c))
 			return (j);
 		j++;
 	}
@@ -51,12 +59,12 @@ static int	ft_split_size(const char *s, char c)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == '\'')
+		if (s[i] == '\'' && s[i - 1] != '\\')
 		{
 			if (!ignore_quote(s, &i, '\''))
 				return (-1);
 		}
-		else if (s[i] == '"')
+		if (s[i] == '"' && s[i - 1] != '\\')
 		{
 			if (!ignore_quote(s, &i, '"'))
 				return (-1);

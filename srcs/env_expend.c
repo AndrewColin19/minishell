@@ -89,6 +89,8 @@ void	expend_var_quote(char **cmd, size_t *i, char quote)
 					get_char(*cmd, *i + 1, k)), i, k);
 			}
 		}
+		if (cmd[0][*i] == '\\')
+			(*i)++;
 		(*i)++;
 	}
 }

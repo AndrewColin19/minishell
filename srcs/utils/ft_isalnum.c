@@ -12,6 +12,11 @@
 
 #include "../../includes/minishell.h"
 
+int	ft_isbackslashable(int c)
+{
+	return (c == '\\' || c == '\'' || c == '"');
+}
+
 int	ft_isalpha(int c)
 {
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
