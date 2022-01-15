@@ -12,27 +12,30 @@
 
 #include "../includes/minishell.h"
 
-int		ft_create_file(char *cmd, int ap)
+int		ft_create_file(t_redir *redir)
 {
-	char	*file;
-	int		i;
-	int		j;
-
-	i = inc_i(cmd, '>');
-	while (cmd[i] == '>' || cmd[i] == ' ')
-		i++;
-	j = i;
-	while (cmd[j] != ' ' && cmd[j] != '\0')
-		j++;
-	file = malloc(j - i);
-	j = 0;
-	while (cmd[i] != ' ' && cmd[i] != '\0')
-		file[j++] = cmd[i++];
-	open(file, O_CREAT, S_IRWXU);
-	if (ap)
-		return (open(file, O_APPEND | O_RDWR));
+	open(redir->kw, O_CREAT, S_IRWXU);
+	if (redir->type)
+		return (open(redir->kw, O_APPEND | O_RDWR));
 	else
-		return (open(file, O_TRUNC | O_RDWR));
+		return (open(redir->kw, O_TRUNC | O_RDWR));
+}
+
+void	get_redirect(t_redir **redir, int *in, int *out)
+{
+	t_redir	*r;
+
+	r = *redir;
+	while (r)
+	{
+		if (r->type == 0 || r->type == 1)
+			*out = ft_create_file(r);
+		else if (r->type == 2)
+			*in = read_file(r);
+		else if (r->type == 3)
+			*in = heredoc(r);
+		r = r->next;
+	}
 }
 
 int 	inc_i(char *cmd, char c)
@@ -89,43 +92,50 @@ void	delete_redirection(char **cmd, char c)
 	}
 }
 
-int		check_redirection_o(char **cmd)
+int 	ignore_quotes(char *cmd, int i)
 {
-	int	file;
+	int 	j;
+	char 	quote;
 
-    if (ft_str_contain(">>", cmd[0]))
-    {
-        file = ft_create_file(cmd[0], 1);
-		delete_redirection(cmd, '>');
-		write(1, "1", 1);
-		return (file);
-    }	
-    else if (ft_str_contain(">", cmd[0]))
-    {
-        file = ft_create_file(cmd[0], 0);
-		delete_redirection(cmd, '>');
-		return (file);
-    }
-	return (0);
+	quote = cmd[i];
+	j = 1;
+	while (cmd[i + j])
+	{
+		if (cmd[i + j] == quote && cmd[i + j - 1] != '\\')
+				return (j);
+		j++;
+	}
+	return (j);
 }
 
-int		check_redirection_i(char **cmd)
+t_redir	*get_redirection(char **cmd, int i)
 {
-	int	file;
+	t_redir	*redir;
 
-    if (ft_str_contain("<<", cmd[0]))
-    {
-		file = heredoc(cmd[0]);
-		delete_redirection(cmd, '<');
-		return (file);
-    }	
-    else if (ft_str_contain("<", cmd[0]))
-    {
-		file = read_file(cmd[0]);
-		delete_redirection(cmd, '<');
-		return (file);
-    }
-	return (0);
+	while (cmd[0][i])
+	{
+		if ((cmd[0][i] == '\'' || cmd[0][i] == '\"') && cmd[0][i - 1] != '\\')
+			i += ignore_quotes(cmd[0], i);
+		else if (cmd[0][i] == '>' || cmd[0][i] == '<')
+		{
+			redir = malloc(sizeof(t_redir));
+			if (cmd[0][i] == '>' && cmd[0][i + 1] == '>')
+				redir->type = 1;
+			else if (cmd[0][i] == '>')
+				redir->type = 0;
+			else if (cmd[0][i] == '<' && cmd[0][i + 1] == '<')
+				redir->type = 3;
+			else
+				redir->type = 2;
+			redir->kw = get_kw(cmd[0], cmd[0][i]);
+			delete_redirection(cmd, cmd[0][i]);
+			redir->next = get_redirection(cmd, i);
+			return (redir);
+		}
+		else
+			i++;
+	}
+	return (NULL);
 }
 
 int		write_redirection(int input, int fd)

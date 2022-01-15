@@ -16,15 +16,13 @@ void	ft_exec(char *path, char **splited, int in, int out)
 {
 	pid_t	pid;
 	int		status;
-	char	**env;
 
-	env = g_env.var_env;
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(in, STDIN_FILENO);
 		dup2(out, STDOUT_FILENO);
-		if (execve(path, splited, env) == -1)
+		if (execve(path, splited, g_env.var_env) == -1)
 			printf("Error\n");
 	}
 	else
@@ -53,24 +51,18 @@ char	*get_exec_path(char *cmd, char *path, int *exist)
 	return (NULL);
 }
 
-void	cmd_exec(char *cmd, int in, int out)
+void	cmd_exec(t_cmd *cmd, int in, int out)
 {
-	char	**splited;
 	char	*path;
 	int		exist;
-	int		i;
 
-	splited = ft_split_mod(cmd, ' ');
-	i = 0;
-	while (splited[i])
-		del_quote(splited[i++]);
 	exist = 0;
 	path = NULL;
-	path = get_exec_path(splited[0], path, &exist);
+	path = get_exec_path(cmd->kw, path, &exist);
 	if (exist == 0)
 	{
-		put_error(": command not found", cmd);
+		put_error(": command not found", cmd->cmd);
 		return ;
 	}
-	ft_exec(path, splited, in, out);
+	ft_exec(path, cmd->args, in, out);
 }

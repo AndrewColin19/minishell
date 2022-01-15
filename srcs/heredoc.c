@@ -12,38 +12,35 @@
 
 #include "../includes/minishell.h"
 
-char    *get_file(char *cmd)
+char    *get_kw(char *cmd, char type)
 {
     int     i;
 	int		j;
 	char	*file;
 
-    i = inc_i(cmd, '<');
-	while (cmd[i] == '<' || cmd[i] == ' ')
+    i = inc_i(cmd, type);
+	while (cmd[i] == type || cmd[i] == ' ')
 		i++;
 	j = i;
 	while (cmd[j] != ' ')
 		j++;
-	file = malloc(j - i + 2);
+	file = malloc(j - i);
 	j = 0;
 	while (cmd[i] != ' ')
 		file[j++] = cmd[i++];
 	return (file);
 }
 
-int		read_file(char *cmd)
+int		read_file(t_redir *r)
 {
-	char	*file;
 	int		fd;
 	char	c;
 	int		pipes[2];
 
-	file = get_file(cmd);
-	fd = open(file, O_RDONLY);
+	fd = open(r->kw, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("minishell: %s: No such file or directory", file);//errno
-		free(file);
+		printf("minishell: %s: No such file or directory", r->kw);//errno
 		return (0);
 	}
 	pipe(pipes);
@@ -67,18 +64,16 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (sa[i] - sb[i]);
 }
 
-int		heredoc(char *cmd)
+int		heredoc(t_redir *r)
 {
-	char	*kw;
 	char	*line;
 	int		pipes[2];
 
 	pipe(pipes);
-	kw = get_file(cmd);
 	while (1)
 	{
 		line = readline(">");
-		if (ft_strcmp(line, kw) == 0)
+		if (ft_strcmp(line, r->kw) == 0)
 		{
 			close(pipes[1]);
 			return (pipes[0]);

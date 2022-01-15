@@ -14,62 +14,38 @@
 
 t_env	g_env = {0, NULL};
 
-void	select_cmd(char *cmd, int in, int out)
+void	select_cmd(t_cmd *cmd, int in, int out)
 {
-	if (check_cmd(cmd, ECHO, 1))
-		cmd_echo(out, cmd);
-	else if (check_cmd(cmd, PWD, 0))
+	if (check_cmd(cmd->cmd, ECHO, 1))
+		cmd_echo(out, cmd->cmd);
+	else if (check_cmd(cmd->cmd, PWD, 0))
 		cmd_pwd(out, &g_env);
-	else if (check_cmd(cmd, ENV, 0))
+	else if (check_cmd(cmd->cmd, ENV, 0))
 		cmd_env(out, g_env);
-	else if (check_cmd(cmd, CD, 0))
-		cmd_cd(&g_env, cmd);
+	else if (check_cmd(cmd->cmd, CD, 0))
+		cmd_cd(&g_env, cmd->cmd);
 	else
 		cmd_exec(cmd, in, out);
 }
 
-int		get_redirect(char **cmds, int i, int fct (char **))
-{
-	int		redirect;
-	int		tmp;
-
-	redirect = fct(&cmds[i]);
-	tmp = fct(&cmds[i]);
-	while (tmp)
-	{
-		redirect = tmp;
-		tmp = fct(&cmds[i]);
-	}
-	return (redirect);
-}
-
-void	exec(char **cmds, int i, int in)
+void	exec(t_cmd **cmds, int i, int in)
 {
 	int 	pipes[2];
 	int		redirect_out;
 	int		redirect_in;
 
 	pipe(pipes);
-	redirect_out = get_redirect(cmds, i, check_redirection_o);
-	redirect_in = get_redirect(cmds, i, check_redirection_i);
+	redirect_out = 0;
+	redirect_in = 0;
+	get_redirect(cmds[i]->redirections, &redirect_in, &redirect_out);
 	if (redirect_in)
 		in = redirect_in;
 	if (cmds[i + 1] || redirect_out)
 	{
-		if (cmds[i][0])
-		{
-			select_cmd(cmds[i], in, pipes[1]);
-			if (redirect_in)
-				redirect_in = 0;
-		}
+		select_cmd(cmds[i], in, pipes[1]);
 		close(pipes[1]);
 		if (redirect_out)
-		{
-			if (redirect_in)
-				write_redirection(in, redirect_out);
-			else
-				write_redirection(pipes[0], redirect_out);
-		}
+			write_redirection(pipes[0], redirect_out);
 		if (cmds[i + 1])
 			exec(cmds, i + 1, pipes[0]);
 	}
@@ -92,10 +68,49 @@ void	quit_signal(int signum)
 	exit(0);
 }
 
+void 	free_lines(t_line **cmd)
+{
+	int 	i;
+	int		k;
+	int 	j;
+	t_redir	*r;
+	t_redir	*n;
+
+	k = 0;
+	while (cmd[k])
+	{
+		free(cmd[k]->line);
+		i = 0;
+		while (cmd[k]->cmds[i])
+		{
+			free(cmd[k]->cmds[i]->cmd);
+			j = 0;
+			while (cmd[k]->cmds[i]->args[j])
+				free(cmd[k]->cmds[i]->args[j++]);
+			r = cmd[k]->cmds[i]->redirections[0];
+			while (r)
+			{
+				n = r->next;
+				free(r->kw);
+				free(r);
+				r = n;
+			}
+			free(cmd[k]->cmds[i]->redirections);
+			free(cmd[k]->cmds[i]);
+			i++;
+		}
+		free(cmd[k]->cmds);
+		free(cmd[k]);
+		k++;
+	}
+	free(cmd);
+}
+
 int	main(int argc, char *argv[], char **ev)
 {
-	char	**cmds;
 	char	*line;
+	t_line	**lines;
+	int 	i;
 
 	(void) argc;
 	(void) argv;
@@ -105,14 +120,18 @@ int	main(int argc, char *argv[], char **ev)
 	while (1)
 	{
 		line = readline(SHELL_TEXT);
+		add_history(line);
 		if (line[0])
 		{
-			cmds = parse(line);
-			if (cmds)
+			expend(&line);
+			lines = parse(line);
+			i = 0;
+			while (lines[i])
 			{
-				exec(cmds, 0, 0);
-				free_cmds(cmds);
+				exec(lines[i]->cmds, 0, 0);
+				i++;
 			}
+			free_lines(lines);
 		}
 	}
 }

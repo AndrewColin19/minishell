@@ -38,25 +38,28 @@ typedef struct s_env
 
 typedef	struct s_redir
 {
-	char 	*kw;
-	int 	type;
+	char 			*kw;
+	int 			type;
+	struct s_redir	*next;
 }				t_redir;
 
 typedef struct s_cmd
 {
 	char 	*cmd;
+	char 	*kw;
 	char 	**args;
 	t_redir	**redirections;
 }				t_cmd;
 
 typedef	struct s_line
 {
-	t_cmd	*cmds;
+	char 	*line;
+	t_cmd	**cmds;
 }				t_line;
 
 extern t_env	g_env;
 
-char	**parse(char *cmd);
+t_line 	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
 int		is_only_n(char *cmd);
 /*-------------uitls------------*/
@@ -91,20 +94,25 @@ void	init(char **ev, t_env *env);
 int		set_var_env(t_env *env, char *kw, char *value);
 void	expend_var(char **cmd, size_t index);
 void	expend_var_quote(char **cmd, size_t *i, char quote);
+void 	expend_all(t_cmd **cmd);
+void	expend(char **cmd);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, char *cmd);
 void	cmd_pwd(int fd, t_env *env);
 void	cmd_env(int fd, t_env g_env);
-void	cmd_exec(char *cmd, int in, int out);
+void	cmd_exec(t_cmd *cmd, int in, int out);
 void	cmd_cd(t_env *env, char *cmd);
 char 	*read_result(int fd);
 /*--------------redirection------*/
 int		write_redirection(int input, int fd);
 int		check_redirection_o(char **cmd);
 int		check_redirection_i(char **cmd);
-int		read_file(char *cmd);
-int		heredoc(char *cmd);
+int		read_file(t_redir *r);
+int		heredoc(t_redir *r);
 int 	inc_i(char *cmd, char c);
+char    *get_kw(char *cmd, char type);
+t_redir	*get_redirection(char **cmd, int i);
+void	get_redirect(t_redir **redir, int *in, int *out);
 
 
 void	rl_replace_line(const char *text, int clear_undo);
