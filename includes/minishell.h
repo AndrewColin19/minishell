@@ -33,6 +33,7 @@
 typedef struct s_env
 {
 	int		size_env;
+	int		status;
 	char	**var_env;
 }	t_env;
 

@@ -26,7 +26,10 @@ void	ft_exec(char *path, char **splited, int in, int out)
 			printf("Error\n");
 	}
 	else
+	{
 		waitpid(pid, &status, 0);
+		g_env.status = WEXITSTATUS(status);
+	}
 }
 
 char	*get_exec_path(char *cmd, char *path, int *exist)
@@ -36,6 +39,11 @@ char	*get_exec_path(char *cmd, char *path, int *exist)
 
 	i = 0;
 	splited_path = ft_split(get_var_env(&g_env, "PATH"), ':');
+	if (open(cmd, O_RDONLY) > -1)
+	{
+		*exist = 1;
+		return (cmd);
+	}
 	while (splited_path[i])
 	{
 		splited_path[i] = ft_strjoin(splited_path[i], "/");
@@ -62,6 +70,7 @@ void	cmd_exec(t_cmd *cmd, int in, int out)
 	if (exist == 0)
 	{
 		put_error(": command not found", cmd->cmd);
+		g_env.status = 127;
 		return ;
 	}
 	ft_exec(path, cmd->args, in, out);

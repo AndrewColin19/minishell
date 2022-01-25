@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-t_env	g_env = {0, NULL};
+t_env	g_env = {0, 0, NULL};
 
 void	select_cmd(t_cmd *cmd, int in, int out)
 {
@@ -53,7 +53,7 @@ void	exec(t_cmd **cmds, int i, int in)
 		select_cmd(cmds[i], in, 1);
 }
 
-void	interrupt_signal(int signal)
+/*void	interrupt_signal(int signal)
 {
 	(void) signal;
 	write(1, "\n", 1);
@@ -66,7 +66,7 @@ void	quit_signal(int signum)
 {
 	(void) signum;
 	exit(0);
-}
+}*/
 
 void 	free_lines(t_line **cmd)
 {
