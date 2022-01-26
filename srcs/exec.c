@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:40:15 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 16:38:44 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:40:19 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	free_lines(t_line **cmd)
 			free(cmd[k]->cmds[i]->args);
 			free_redirs(cmd[k]->cmds[i]->redirections[0]);
 			free(cmd[k]->cmds[i]->redirections);
-			free(cmd[k]->cmds[i]);
-			i++;
+			free(cmd[k]->cmds[i++]);
 		}
 		free(cmd[k]->cmds);
 		free(cmd[k]);
