@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 16:36:18 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:00:07 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	cmd_export(int fd, t_env *g_env, t_cmd *cmd)
 		{
 			if (!ft_isalnum(cmd->args[1][i]))
 			{
-				printf("%s: '%s': not a valid identifier\n", cmd->kw, cmd->args[1]);
+				printf("%s: '%s': not a valid identifier\n",
+					cmd->kw, cmd->args[1]);
 				g_env->status = 1;
 				return ;
 			}
@@ -98,7 +99,8 @@ void	cmd_export(int fd, t_env *g_env, t_cmd *cmd)
 		if (cmd->args[1][i] == '\0')
 			add_var_env(g_env, cmd->args[1], NULL);
 		else
-			add_var_env(g_env, get_char(cmd->args[1], 0, i), cmd->args[1] + i + 1);
+			add_var_env(g_env, get_char(cmd->args[1], 0, i),
+				cmd->args[1] + i + 1);
 		g_env->status = 0;
 	}
 }
