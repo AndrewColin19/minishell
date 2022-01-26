@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:01 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 16:46:09 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:43:06 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_char(char *cmd, size_t start, size_t end)
 	return (deb);
 }
 
-void	insert_code(t_env *env, char **cmd, size_t *start)
+void	insert_code(char **cmd, size_t *start)
 {
 	char	*debut;
 	char	*fin;
@@ -41,11 +41,11 @@ void	insert_code(t_env *env, char **cmd, size_t *start)
 	fin = get_char(*cmd, *start + 2, ft_strlen(*cmd));
 	if (fin)
 	{
-		tmp = ft_strjoin(debut, ft_itoa(env->status));
+		tmp = ft_strjoin(debut, ft_itoa(g_env.status));
 		*cmd = ft_strjoin(tmp, fin);
 	}
 	else
-		*cmd = ft_strjoin(debut, ft_itoa(env->status));
+		*cmd = ft_strjoin(debut, ft_itoa(g_env.status));
 }
 
 void	insert(char **cmd, char *var, size_t *start, size_t end)
@@ -68,7 +68,7 @@ void	insert(char **cmd, char *var, size_t *start, size_t end)
 	*start += ft_strlen(var) - 1;
 }
 
-void	expend_var_quote(t_env *env, char **cmd, size_t *i, char quote)
+void	expend_var_quote(char **cmd, size_t *i, char quote)
 {
 	size_t	k;
 
@@ -76,14 +76,14 @@ void	expend_var_quote(t_env *env, char **cmd, size_t *i, char quote)
 	while (cmd[0][*i] != quote)
 	{
 		if (cmd[0][*i] == '$' && cmd[0][*i + 1] == '?')
-			insert_code(env, cmd, i);
+			insert_code(cmd, i);
 		else if (cmd[0][*i] == '$' && ft_isalnum(cmd[0][*i + 1]))
 		{
 			k = *i + 1;
 			while (ft_isalnum(cmd[0][k]))
 				k++;
-			insert(cmd, get_var_env(&g_env,
-					get_char(*cmd, *i + 1, k)), i, k);
+			insert(cmd, get_var_env(get_char(*cmd, *i + 1, k)),
+				i, k);
 		}
 		if (cmd[0][*i] == '\\')
 			(*i)++;
@@ -91,7 +91,7 @@ void	expend_var_quote(t_env *env, char **cmd, size_t *i, char quote)
 	}
 }
 
-void	expend_var(t_env *env, char **cmd, size_t index)
+void	expend_var(char **cmd, size_t index)
 {
 	size_t	j;
 	size_t	k;
@@ -100,14 +100,14 @@ void	expend_var(t_env *env, char **cmd, size_t index)
 	while (cmd[0][j] && cmd[0][j] != ' ')
 	{
 		if (cmd[0][j] == '$' && cmd[0][j + 1] == '?')
-			insert_code(env, cmd, &j);
+			insert_code(cmd, &j);
 		else if (cmd[0][j] == '$' && ft_isalnum(cmd[0][j + 1]))
 		{
 			k = j + 1;
 			while (ft_isalnum(cmd[0][k]))
 				k++;
-			insert(cmd, get_var_env(&g_env,
-					get_char(*cmd, j + 1, k)), &j, k);
+			insert(cmd, get_var_env(get_char(*cmd, j + 1, k)),
+				&j, k);
 		}
 		j++;
 	}

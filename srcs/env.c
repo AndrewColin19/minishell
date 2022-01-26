@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 16:44:23 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:39:36 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,28 @@ static char	*set_value(char *kw, char *value)
 	return (v);
 }
 
-int	add_var_env(t_env *env, char *kw, char *value)
+int	add_var_env(char *kw, char *value)
 {
 	char	**var;
 	int		i;
 
-	if (get_var_env(env, kw))
-		return (set_var_env(env, kw, value));
-	env->size_env += 1;
-	var = malloc(sizeof(char *) * env->size_env + 1);
+	if (get_var_env(kw))
+		return (set_var_env(kw, value));
+	g_env.size_env += 1;
+	var = malloc(sizeof(char *) * g_env.size_env + 1);
 	i = 0;
-	while (env->var_env[i])
+	while (g_env.var_env[i])
 	{
-		var[i] = ft_strdup(env->var_env[i]);
+		var[i] = ft_strdup(g_env.var_env[i]);
 		i++;
 	}
 	var[i] = set_value(kw, value);
 	var[++i] = NULL;
-	env->var_env = var;
+	g_env.var_env = var;
 	return (1);
 }
 
-int	set_var_env(t_env *env, char *kw, char *value)
+int	set_var_env(char *kw, char *value)
 {
 	int		i;
 	int		j;
@@ -66,16 +66,16 @@ int	set_var_env(t_env *env, char *kw, char *value)
 
 	i = -1;
 	s_kw = ft_strlen(kw);
-	while (++i < env->size_env)
+	while (++i < g_env.size_env)
 	{
 		j = 0;
-		if (env->var_env[i][j] == kw[j])
+		if (g_env.var_env[i][j] == kw[j])
 		{
-			while (env->var_env[i][j] == kw[j])
+			while (g_env.var_env[i][j] == kw[j])
 			{
 				if (j == s_kw - 1)
 				{
-					env->var_env[i] = set_value(kw, value);
+					g_env.var_env[i] = set_value(kw, value);
 					return (1);
 				}
 				j++;
@@ -85,7 +85,7 @@ int	set_var_env(t_env *env, char *kw, char *value)
 	return (0);
 }
 
-char	*get_var_env(t_env *env, char *kw)
+char	*get_var_env(char *kw)
 {
 	int		i;
 	int		j;
@@ -93,16 +93,16 @@ char	*get_var_env(t_env *env, char *kw)
 
 	i = -1;
 	s_kw = ft_strlen(kw);
-	while (++i < env->size_env)
+	while (++i < g_env.size_env)
 	{
 		j = 0;
-		if (env->var_env[i][j] == kw[j])
+		if (g_env.var_env[i][j] == kw[j])
 		{
-			while (env->var_env[i][j] == kw[j])
+			while (g_env.var_env[i][j] == kw[j])
 			{
-				if ((j == s_kw - 1 && env->var_env[i][j + 1] == '=')
-					|| env->var_env[i][j + 1] == '\0')
-					return (env->var_env[i] + j + 2);
+				if ((j == s_kw - 1 && g_env.var_env[i][j + 1] == '=')
+					|| g_env.var_env[i][j + 1] == '\0')
+					return (g_env.var_env[i] + j + 2);
 				j++;
 			}
 		}
@@ -110,17 +110,17 @@ char	*get_var_env(t_env *env, char *kw)
 	return (NULL);
 }
 
-void	init(char **ev, t_env *env)
+void	init(char **ev)
 {
 	int		i;
 
 	i = 0;
 	while (ev[i])
 		i++;
-	env->var_env = malloc(sizeof(char *) * i);
-	env->size_env = i;
+	g_env.var_env = malloc(sizeof(char *) * i);
+	g_env.size_env = i;
 	i = -1;
 	while (ev[++i])
-		env->var_env[i] = ft_strdup(ev[i]);
-	env->var_env[i] = NULL;
+		g_env.var_env[i] = ft_strdup(ev[i]);
+	g_env.var_env[i] = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:40:15 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 17:07:51 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:45:06 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	select_cmd(t_cmd *cmd, int in, int out)
 	if (check_cmd(cmd->cmd, ECHO, 1))
 		cmd_echo(out, cmd);
 	else if (check_cmd(cmd->cmd, PWD, 1))
-		cmd_pwd(out, &g_env);
+		cmd_pwd(out);
 	else if (check_cmd(cmd->cmd, ENV, 0))
-		cmd_env(out, &g_env);
+		cmd_env(out);
 	else if (check_cmd(cmd->cmd, CD, 0))
-		cmd_cd(&g_env, cmd);
+		cmd_cd(cmd);
 	else if (check_cmd(cmd->cmd, EXPORT, 0))
-		cmd_export(out, &g_env, cmd);
+		cmd_export(out, cmd);
+	else if (check_cmd(cmd->cmd, UNSET, 0))
+		cmd_unset(cmd);
 	else if (check_cmd(cmd->cmd, EXIT, 1))
 		cmd_exit();
 	else

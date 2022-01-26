@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:13:12 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 16:43:42 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:45:49 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ void	order_by_asc(char **tab)
 	}
 }
 
-void	aff_export(int fd, t_env *g_env)
+void	aff_export(int fd)
 {
 	char	**tab;
 
-	tab = dup_tab(g_env->var_env);
+	tab = dup_tab(g_env.var_env);
 	order_by_asc(tab);
 	aff_var_export_tab(fd, tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:18:49 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 16:54:05 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:45:28 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_exec_path(char *cmd, char *path, int *exist)
 	int		i;
 
 	i = 0;
-	splited_path = ft_split(get_var_env(&g_env, "PATH"), ':');
+	splited_path = ft_split(get_var_env("PATH"), ':');
 	while (splited_path[i])
 	{
 		test = ft_strjoin(splited_path[i], "/");

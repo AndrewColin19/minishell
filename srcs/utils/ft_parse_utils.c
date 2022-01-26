@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:35:27 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 14:55:45 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:43:17 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	rm_space_end(char **cmds)
 	}
 }
 
-void	expend(t_env *env, char **cmd)
+void	expend(char **cmd)
 {
 	size_t	i;
 	int		exp;
@@ -40,11 +40,11 @@ void	expend(t_env *env, char **cmd)
 	while (cmd[0][i])
 	{
 		if (cmd[0][i] == '"' && exp == 1)
-			expend_var_quote(env, cmd, &i, cmd[0][i]);
+			expend_var_quote(cmd, &i, cmd[0][i]);
 		if (cmd[0][i] == '\'')
 			exp = 0;
 		if (cmd[0][i] == '$' && exp == 1)
-			expend_var(env, cmd, i);
+			expend_var(cmd, i);
 		if (cmd[0][i] == '\\')
 			i++;
 		i++;
