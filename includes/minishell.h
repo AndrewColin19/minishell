@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 10:42:43 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:29:22 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define PWD "pwd"
 # define CD "cd"
 # define ENV "env"
+# define EXPORT "export"
 
 typedef struct s_env
 {
@@ -101,12 +102,14 @@ void	expend_var(char **cmd, size_t index);
 void	expend_var_quote(char **cmd, size_t *i, char quote);
 void	expend_all(t_cmd **cmd);
 void	expend(char **cmd);
+void    aff_export(int fd, t_env *g_env);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, char *cmd);
 void	cmd_pwd(int fd, t_env *env);
 void	cmd_env(int fd, t_env g_env);
 void	cmd_exec(t_cmd *cmd, int in, int out);
 void	cmd_cd(t_env *env, char *cmd);
+void	cmd_export(int fd, t_env *g_env, char *cmd);
 char	*read_result(int fd);
 /*--------------redirection------*/
 int		write_redirection(int input, int fd);
@@ -120,7 +123,6 @@ char	*get_kw(char *cmd, char type);
 t_redir	*get_redirection(char **cmd, int i);
 void	get_redirect(t_redir **redir, int *in, int *out);
 int		ft_create_file(t_redir *redir);
-
 void	rl_replace_line(const char *text, int clear_undo);
 
 #endif

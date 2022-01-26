@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 10:12:59 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:24:07 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,16 @@ void	cmd_cd(t_env *g_env, char *cmd)
 		add_var_env(g_env, "OLDPWD", get_var_env(g_env, "PWD"));
 		set_var_env(g_env, "PWD", path);
 	}
+}
+
+void	cmd_export(int fd, t_env *g_env, char *cmd)
+{
+	int	i;
+
+	del_quote(cmd);
+	i = 0;
+	while (cmd[i] && cmd[i] != ' ')
+		i++;
+	if (cmd[i] == '\0')
+		aff_export(fd, g_env);
 }
