@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:18:49 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 14:49:32 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:54:05 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	cmd_exec(t_cmd *cmd, int in, int out)
 	if (open(cmd->kw, O_RDONLY) > -1)
 	{
 		exist = 1;
-		path = cmd->kw;
+		path = ft_strdup(cmd->kw);
 	}
 	else if (!is_path(cmd->kw))
 		path = get_exec_path(cmd->kw, path, &exist);
