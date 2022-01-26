@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:40:15 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 17:52:24 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:20:01 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	select_cmd(t_cmd *cmd, int in, int out, t_line **lines)
 {
-	if (check_cmd(cmd->cmd, ECHO, 1))
+	if (!ft_strcmp(ECHO, cmd->kw))
 		cmd_echo(out, cmd);
-	else if (check_cmd(cmd->cmd, PWD, 1))
+	else if (!ft_strcmp(PWD, cmd->kw))
 		cmd_pwd(out);
-	else if (check_cmd(cmd->cmd, ENV, 0))
+	else if (!ft_strcmp(ENV, cmd->kw))
 		cmd_env(out);
-	else if (check_cmd(cmd->cmd, CD, 0))
+	else if (!ft_strcmp(CD, cmd->kw))
 		cmd_cd(cmd);
-	else if (check_cmd(cmd->cmd, EXPORT, 0))
+	else if (!ft_strcmp(EXPORT, cmd->kw))
 		cmd_export(out, cmd);
-	else if (check_cmd(cmd->cmd, UNSET, 0))
+	else if (!ft_strcmp(UNSET, cmd->kw))
 		cmd_unset(cmd);
-	else if (check_cmd(cmd->cmd, EXIT, 1))
+	else if (!ft_strcmp(EXIT, cmd->kw))
 		cmd_exit(lines);
 	else
 		cmd_exec(cmd, in, out);
