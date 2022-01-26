@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:40:53 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:47:51 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	cmd_exec(t_cmd *cmd, int in, int out);
 void	cmd_cd(t_cmd *cmd);
 void	cmd_export(int fd, t_cmd *cmd);
 void	cmd_unset(t_cmd *cmd);
-void	cmd_exit();
+void	cmd_exit(void);
 char	*read_result(int fd);
 /*--------------redirection------*/
 int		write_redirection(int input, int fd);
