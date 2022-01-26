@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 12:35:55 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 13:34:00 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	add_var_env(t_env *env, char *kw, char *value)
 	int		i;
 
 	if (get_var_env(env, kw))
-		return (0);
+		return (set_var_env(env, kw, value));
 	env->size_env += 1;
 	var = malloc(sizeof(char *) * env->size_env + 1);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 12:16:06 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 14:07:10 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,21 @@ void	cmd_env(int fd, t_env g_env)
 		putstr_endl(fd, g_env.var_env[i]);
 }
 
-void	cmd_cd(t_env *g_env, char *cmd)
+void	cmd_cd(t_env *g_env, t_cmd *cmd)
 {
 	int		i;
 	char	*path;
 
-	del_quote(cmd);
 	i = 0;
-	while (cmd[i] && cmd[i] != ' ')
-		i++;
-	if (cmd[i] == '\0')
+	if (cmd->args[1] == NULL)
 		path = get_var_env(g_env, "HOME");
 	else
-		path = cmd + (++i);
+		path = cmd->args[1];
 	if (chdir(path) == -1)
-		printf("cd: %s: Aucun fichier ou dossier de ce type\n", path);
+	{
+		putstr(1, "cd: ");
+		perror(path);
+	}
 	else
 	{
 		add_var_env(g_env, "OLDPWD", get_var_env(g_env, "PWD"));
@@ -93,6 +93,6 @@ void	cmd_export(int fd, t_env *g_env, char *cmd)
 		if (cmd[j] == '\0')
 			add_var_env(g_env, cmd + i, NULL);
 		else
-			add_var_env(g_env, get_char(cmd, i + 1, j), cmd + j + 1);
+			add_var_env(g_env, get_char(cmd, i, j), cmd + j + 1);
 	}
 }

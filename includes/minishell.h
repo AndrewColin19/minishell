@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 12:25:27 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 13:53:35 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	cmd_echo(int fd, char *cmd);
 void	cmd_pwd(int fd, t_env *env);
 void	cmd_env(int fd, t_env g_env);
 void	cmd_exec(t_cmd *cmd, int in, int out);
-void	cmd_cd(t_env *env, char *cmd);
+void	cmd_cd(t_env *env, t_cmd *cmd);
 void	cmd_export(int fd, t_env *g_env, char *cmd);
 char	*read_result(int fd);
 /*--------------redirection------*/
