@@ -6,30 +6,30 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 14:07:10 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 14:38:56 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	cmd_echo(int fd, char *cmd)
+void	cmd_echo(int fd, t_cmd *cmd)
 {
 	int		i;
 	int		ln;
 
-	del_quote(cmd);
-	i = ft_strlen(ECHO) + 1;
-	ln = 1;
-	if (cmd[i] == '-' && is_only_n(cmd + i + 1))
-		ln = 0;
-	if (ln)
-		putstr_endl(fd, cmd + i);
-	else
+	ln = 0;
+	if (cmd->args[1][0] == '-' && is_only_n(cmd->args[1] + 1))
+		ln = 1;
+	i = 1 + ln;
+	while (cmd->args[i])
 	{
-		while (cmd[i] && cmd[i] != ' ')
-			i++;
-		putstr(fd, cmd + i);
+		putstr(fd, cmd->args[i]);
+		if (cmd->args[i + 1] != NULL)
+			putstr(fd, " ");
+		i++;
 	}
+	if (!ln)
+		putstr(fd, "\n");
 }
 
 void	cmd_pwd(int fd, t_env *env)
@@ -72,27 +72,27 @@ void	cmd_cd(t_env *g_env, t_cmd *cmd)
 	}
 }
 
-void	cmd_export(int fd, t_env *g_env, char *cmd)
+void	cmd_export(int fd, t_env *g_env, t_cmd *cmd)
 {
 	size_t	i;
-	size_t	j;
 
-	del_quote(cmd);
-	i = 0;
-	while (cmd[i] && cmd[i] != ' ')
-		i++;
-	while (cmd[i] == ' ')
-		i++;
-	if (cmd[i] == '\0')
+	if (cmd->args[1] == NULL)
 		aff_export(fd, g_env);
 	else
 	{
-		j = i;
-		while (cmd[j] && cmd[j] != '=')
-			j++;
-		if (cmd[j] == '\0')
-			add_var_env(g_env, cmd + i, NULL);
+		i = 0;
+		while (cmd->args[1][i] && cmd->args[1][i] != '=')
+		{
+			if (!ft_isalnum(cmd->args[1][i]))
+			{
+				printf("%s: '%s': not a valid identifier\n", cmd->kw, cmd->args[1]);
+				return ;
+			}
+			i++;
+		}
+		if (cmd->args[1][i] == '\0')
+			add_var_env(g_env, cmd->args[1], NULL);
 		else
-			add_var_env(g_env, get_char(cmd, i, j), cmd + j + 1);
+			add_var_env(g_env, get_char(cmd->args[1], 0, i), cmd->args[1] + i + 1);
 	}
 }

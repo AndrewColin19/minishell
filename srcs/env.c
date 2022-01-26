@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 13:34:00 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 14:15:58 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*get_var_env(t_env *env, char *kw)
 		{
 			while (env->var_env[i][j] == kw[j])
 			{
-				if (j == s_kw - 1 && env->var_env[i][j + 1] == '=')
+				if ((j == s_kw - 1 && env->var_env[i][j + 1] == '=') || env->var_env[i][j + 1] == '\0')
 					return (env->var_env[i] + j + 2);
 				j++;
 			}
