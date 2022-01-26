@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:35:27 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 10:35:38 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:55:45 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	rm_space_end(char **cmds)
 	}
 }
 
-void	expend(char **cmd)
+void	expend(t_env *env, char **cmd)
 {
 	size_t	i;
 	int		exp;
@@ -40,11 +40,11 @@ void	expend(char **cmd)
 	while (cmd[0][i])
 	{
 		if (cmd[0][i] == '"' && exp == 1)
-			expend_var_quote(cmd, &i, cmd[0][i]);
+			expend_var_quote(env, cmd, &i, cmd[0][i]);
 		if (cmd[0][i] == '\'')
 			exp = 0;
 		if (cmd[0][i] == '$' && exp == 1)
-			expend_var(cmd, i);
+			expend_var(env, cmd, i);
 		if (cmd[0][i] == '\\')
 			i++;
 		i++;

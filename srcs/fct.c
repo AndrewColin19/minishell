@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 14:38:56 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 16:36:18 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cmd_echo(int fd, t_cmd *cmd)
 	int		ln;
 
 	ln = 0;
-	if (cmd->args[1][0] == '-' && is_only_n(cmd->args[1] + 1))
+	if (cmd->args[1] && cmd->args[1][0] == '-' && is_only_n(cmd->args[1] + 1))
 		ln = 1;
 	i = 1 + ln;
 	while (cmd->args[i])
@@ -32,22 +32,24 @@ void	cmd_echo(int fd, t_cmd *cmd)
 		putstr(fd, "\n");
 }
 
-void	cmd_pwd(int fd, t_env *env)
+void	cmd_pwd(int fd, t_env *g_env)
 {
 	char	*path;
 
-	path = get_var_env(env, "PWD");
+	path = get_var_env(g_env, "PWD");
 	if (path != NULL)
 		putstr_endl(fd, path);
+	g_env->status = 0;
 }
 
-void	cmd_env(int fd, t_env g_env)
+void	cmd_env(int fd, t_env *g_env)
 {
 	int	i;
 
 	i = -1;
-	while (g_env.var_env[++i])
-		putstr_endl(fd, g_env.var_env[i]);
+	while (g_env->var_env[++i])
+		putstr_endl(fd, g_env->var_env[i]);
+	g_env->status = 0;
 }
 
 void	cmd_cd(t_env *g_env, t_cmd *cmd)
@@ -64,12 +66,14 @@ void	cmd_cd(t_env *g_env, t_cmd *cmd)
 	{
 		putstr(1, "cd: ");
 		perror(path);
+		g_env->status = 1;
 	}
 	else
 	{
 		add_var_env(g_env, "OLDPWD", get_var_env(g_env, "PWD"));
 		set_var_env(g_env, "PWD", path);
 	}
+	g_env->status = 0;
 }
 
 void	cmd_export(int fd, t_env *g_env, t_cmd *cmd)
@@ -86,6 +90,7 @@ void	cmd_export(int fd, t_env *g_env, t_cmd *cmd)
 			if (!ft_isalnum(cmd->args[1][i]))
 			{
 				printf("%s: '%s': not a valid identifier\n", cmd->kw, cmd->args[1]);
+				g_env->status = 1;
 				return ;
 			}
 			i++;
@@ -94,5 +99,6 @@ void	cmd_export(int fd, t_env *g_env, t_cmd *cmd)
 			add_var_env(g_env, cmd->args[1], NULL);
 		else
 			add_var_env(g_env, get_char(cmd->args[1], 0, i), cmd->args[1] + i + 1);
+		g_env->status = 0;
 	}
 }
