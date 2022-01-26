@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:18:49 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 11:53:06 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:49:32 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,49 @@ void	ft_exec(char *path, char **splited, int in, int out)
 		dup2(in, STDIN_FILENO);
 		dup2(out, STDOUT_FILENO);
 		if (execve(path, splited, g_env.var_env) == -1)
-			perror("coucou");
+			perror(path);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
 		g_env.status = WEXITSTATUS(status);
 	}
+	free(path);
+}
+
+void	free_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
 
 char	*get_exec_path(char *cmd, char *path, int *exist)
 {
 	char	**splited_path;
+	char	*test;
 	int		i;
 
 	i = 0;
 	splited_path = ft_split(get_var_env(&g_env, "PATH"), ':');
 	while (splited_path[i])
 	{
-		splited_path[i] = ft_strjoin(splited_path[i], "/");
-		path = ft_strjoin(splited_path[i], cmd);
+		test = ft_strjoin(splited_path[i], "/");
+		path = ft_strjoin(test, cmd);
+		free(test);
 		if (open(path, O_RDONLY) > -1)
 		{
 			*exist = 1;
+			free_tab(splited_path);
 			return (path);
 		}
+		free(path);
 		i++;
 	}
+	free_tab(splited_path);
 	*exist = 0;
 	return (NULL);
 }

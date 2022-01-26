@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:40:15 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 14:28:03 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 14:56:56 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	free_lines(t_line **cmd)
 			j = 0;
 			while (cmd[k]->cmds[i]->args[j])
 				free(cmd[k]->cmds[i]->args[j++]);
+			free(cmd[k]->cmds[i]->args);
 			free_redirs(cmd[k]->cmds[i]->redirections[0]);
 			free(cmd[k]->cmds[i]->redirections);
 			free(cmd[k]->cmds[i]);
