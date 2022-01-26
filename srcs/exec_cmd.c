@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:18:49 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 11:36:43 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:53:06 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_exec(char *path, char **splited, int in, int out)
 		dup2(in, STDIN_FILENO);
 		dup2(out, STDOUT_FILENO);
 		if (execve(path, splited, g_env.var_env) == -1)
-			printf("Error\n");
+			perror("coucou");
 	}
 	else
 	{

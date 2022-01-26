@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 12:22:23 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 12:25:27 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <string.h>
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -122,7 +123,7 @@ int		heredoc(t_redir *r);
 int		inc_i(char *cmd, char c);
 char	*get_kw(char *cmd, char type);
 t_redir	*get_redirection(char **cmd, int i);
-void	get_redirect(t_redir **redir, int *in, int *out);
+int		get_redirect(t_redir **redir, int *in, int *out);
 int		ft_create_file(t_redir *redir);
 void	rl_replace_line(const char *text, int clear_undo);
 

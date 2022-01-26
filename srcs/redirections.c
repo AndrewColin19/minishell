@@ -6,13 +6,13 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 13:10:35 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 10:33:31 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:10:26 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	get_redirect(t_redir **redir, int *in, int *out)
+int	get_redirect(t_redir **redir, int *in, int *out)
 {
 	t_redir	*r;
 
@@ -25,8 +25,11 @@ void	get_redirect(t_redir **redir, int *in, int *out)
 			*in = read_file(r);
 		else if (r->type == 3)
 			*in = heredoc(r);
+		if (*in < 0 || *out < 0)
+			return (0);
 		r = r->next;
 	}
+	return (1);
 }
 
 int	ignore_quotes(char *cmd, int i)
