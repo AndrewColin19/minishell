@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:52:16 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:52:44 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ extern t_env	g_env;
 t_line	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
 int		is_only_n(char *cmd);
-void	exec(t_cmd **cmds, int i, int in, t_lines **lines);
+void	exec(t_cmd **cmds, int i, int in, t_line **lines);
 void	free_lines(t_line **cmd);
 /*-------------utils------------*/
 char	**ft_split(const char *s, char c);
