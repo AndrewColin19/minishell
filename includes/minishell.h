@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 12:24:44 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:25:27 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int		heredoc(t_redir *r);
 int		inc_i(char *cmd, char c);
 char	*get_kw(char *cmd, char type);
 t_redir	*get_redirection(char **cmd, int i);
-void	get_redirect(t_redir **redir, int *in, int *out);
+int		get_redirect(t_redir **redir, int *in, int *out);
 int		ft_create_file(t_redir *redir);
 void	rl_replace_line(const char *text, int clear_undo);
 
