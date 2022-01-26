@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   fct2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:39:08 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:00:25 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:07:40 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	cmd_unset(int fd, t_cmd *cmd)
+void	cmd_unset(t_env *env, t_cmd *cmd)
 {
+	(void) env;
+	(void) cmd;
+}
 
+void	cmd_exit()
+{
+	printf("exit\n");
+	exit(1);
 }

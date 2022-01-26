@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:40:15 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 16:40:19 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:07:51 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	select_cmd(t_cmd *cmd, int in, int out)
 		cmd_cd(&g_env, cmd);
 	else if (check_cmd(cmd->cmd, EXPORT, 0))
 		cmd_export(out, &g_env, cmd);
+	else if (check_cmd(cmd->cmd, EXIT, 1))
+		cmd_exit();
 	else
 		cmd_exec(cmd, in, out);
 }

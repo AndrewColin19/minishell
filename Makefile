@@ -10,7 +10,7 @@ SRCS =  srcs/main.c srcs/utils/ft_split.c srcs/utils/ft_calloc.c \
 		srcs/heredoc.c srcs/utils/ft_split_mod.c \
 		srcs/del_item.c srcs/utils/ft_parse_utils.c \
 		srcs/exec.c srcs/env_export.c \
-		srcs/utils/ft_itoa.c
+		srcs/utils/ft_itoa.c srcs/fct2.c
 
 OBJS = ${SRCS:.c=.o}
 all: ${NAME}

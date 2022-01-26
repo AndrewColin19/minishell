@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 16:16:38 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:07:44 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-# define PATH_BUF 4096
-
 # define SHELL_TEXT "minishell$ "
 # define ECHO "echo"
 # define PWD "pwd"
 # define CD "cd"
 # define ENV "env"
 # define EXPORT "export"
+# define UNSET "unset"
+# define EXIT "exit"
 
 typedef struct s_env
 {
@@ -113,6 +113,8 @@ void	cmd_env(int fd, t_env *env);
 void	cmd_exec(t_cmd *cmd, int in, int out);
 void	cmd_cd(t_env *env, t_cmd *cmd);
 void	cmd_export(int fd, t_env *g_env, t_cmd *cmd);
+void	cmd_unset(t_env *env, t_cmd *cmd);
+void	cmd_exit();
 char	*read_result(int fd);
 /*--------------redirection------*/
 int		write_redirection(int input, int fd);
