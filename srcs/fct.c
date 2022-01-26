@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 17:44:47 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 18:07:43 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	cmd_export(int fd, t_cmd *cmd)
 		i = 0;
 		while (cmd->args[1][i] && cmd->args[1][i] != '=')
 		{
-			if (!ft_isalnum(cmd->args[1][i]))
+			if (!ft_isok(cmd->args[1]))
 			{
 				printf("%s: '%s': not a valid identifier\n",
 					cmd->kw, cmd->args[1]);

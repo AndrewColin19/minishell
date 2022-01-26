@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:52:44 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:07:23 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ char	*ft_strdup(const char *s);
 int		ft_str_contain(char *substr, char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
+int		ft_isdigit(int c);
+int		ft_isalpha(int c);
+int		ft_isok(char *str);
 int		ft_isbackslashable(int c);
 int		check_pip(char *cmd);
 char	*get_char(char *cmd, size_t start, size_t end);
