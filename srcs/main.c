@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:48:51 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:51:51 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char *argv[], char **ev)
 
 	(void) argc;
 	(void) argv;
-	init(ev, &g_env);
+	init(ev);
 	//signal(SIGINT, interrupt_signal);
 	//signal(SIGQUIT, quit_signal);
 	while (1)
@@ -61,7 +61,7 @@ int	main(int argc, char *argv[], char **ev)
 		add_history(line);
 		if (line[0])
 		{
-			expend(&g_env, &line);
+			expend(&line);
 			lines = parse(line);
 			loop(lines);
 			free_lines(lines);

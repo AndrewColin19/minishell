@@ -6,7 +6,11 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/26 17:50:16 by lmataris         ###   ########.fr       */
+=======
+/*   Updated: 2022/01/26 17:47:51 by acolin           ###   ########.fr       */
+>>>>>>> 145be3ee676e19dd25ced41a8350642a04bb79dc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +101,23 @@ void	put_error(char *er, char *cmd);
 /*-------------frees------------*/
 void	free_cmds(char **cmd);
 /*--------------env-------------*/
-char	*get_var_env(t_env *env, char *kw);
-int		add_var_env(t_env *env, char *kw, char *value);
-void	init(char **ev, t_env *env);
-int		set_var_env(t_env *env, char *kw, char *value);
-void	expend_var(t_env *env, char **cmd, size_t index);
-void	expend_var_quote(t_env *env, char **cmd, size_t *i, char quote);
+char	*get_var_env(char *kw);
+int		add_var_env(char *kw, char *value);
+void	init(char **ev);
+int		set_var_env(char *kw, char *value);
+void	expend_var(char **cmd, size_t index);
+void	expend_var_quote(char **cmd, size_t *i, char quote);
 void	expend_all(t_cmd **cmd);
-void	expend(t_env *env, char **cmd);
-void	aff_export(int fd, t_env *g_env);
+void	expend(char **cmd);
+void	aff_export(int fd);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, t_cmd *cmd);
-void	cmd_pwd(int fd, t_env *env);
-void	cmd_env(int fd, t_env *env);
+void	cmd_pwd(int fd);
+void	cmd_env(int fd);
 void	cmd_exec(t_cmd *cmd, int in, int out);
-void	cmd_cd(t_env *env, t_cmd *cmd);
-void	cmd_export(int fd, t_env *g_env, t_cmd *cmd);
-void	cmd_unset(t_env *env, t_cmd *cmd);
+void	cmd_cd(t_cmd *cmd);
+void	cmd_export(int fd, t_cmd *cmd);
+void	cmd_unset(t_cmd *cmd);
 void	cmd_exit(t_line **lines);
 char	*read_result(int fd);
 /*--------------redirection------*/
