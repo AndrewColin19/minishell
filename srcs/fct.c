@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/04 16:49:41 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 10:12:59 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	cmd_echo(int fd, char *cmd)
 {
-    int i;
-    int ln;
+	int		i;
+	int		ln;
 
 	del_quote(cmd);
-    i = ft_strlen(ECHO) + 1;
-    ln = 1;
-    if (cmd[i] == '-' && is_only_n(cmd + i + 1))
-        ln = 0;
-    if (ln)
-        putstr_endl(fd, cmd + i);
-    else
-    {
-        while (cmd[i] && cmd[i] != ' ')
-            i++;
-        putstr(fd, cmd + i);
-    }   
+	i = ft_strlen(ECHO) + 1;
+	ln = 1;
+	if (cmd[i] == '-' && is_only_n(cmd + i + 1))
+		ln = 0;
+	if (ln)
+		putstr_endl(fd, cmd + i);
+	else
+	{
+		while (cmd[i] && cmd[i] != ' ')
+			i++;
+		putstr(fd, cmd + i);
+	}
 }
 
 void	cmd_pwd(int fd, t_env *env)
@@ -54,7 +54,7 @@ void	cmd_cd(t_env *g_env, char *cmd)
 {
 	int		i;
 	char	*path;
-	
+
 	del_quote(cmd);
 	i = 0;
 	while (cmd[i] && cmd[i] != ' ')
@@ -65,9 +65,9 @@ void	cmd_cd(t_env *g_env, char *cmd)
 		path = cmd + (++i);
 	if (chdir(path) == -1)
 		printf("cd: %s: Aucun fichier ou dossier de ce type\n", path);
-	else 
+	else
 	{
-		add_var_env(g_env, "OLDPWD", get_var_env(g_env,"PWD"));
+		add_var_env(g_env, "OLDPWD", get_var_env(g_env, "PWD"));
 		set_var_env(g_env, "PWD", path);
 	}
 }

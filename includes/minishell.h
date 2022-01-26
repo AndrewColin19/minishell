@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/08 02:04:44 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 10:42:43 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,44 +37,48 @@ typedef struct s_env
 	char	**var_env;
 }	t_env;
 
-typedef	struct s_redir
+typedef struct s_redir
 {
-	char 			*kw;
-	int 			type;
+	char			*kw;
+	int				type;
 	struct s_redir	*next;
 }				t_redir;
 
 typedef struct s_cmd
 {
-	char 	*cmd;
-	char 	*kw;
-	char 	**args;
+	char	*cmd;
+	char	*kw;
+	char	**args;
 	t_redir	**redirections;
 }				t_cmd;
 
-typedef	struct s_line
+typedef struct s_line
 {
-	char 	*line;
+	char	*line;
 	t_cmd	**cmds;
 }				t_line;
 
 extern t_env	g_env;
 
-t_line 	**parse(char *cmd);
+t_line	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
 int		is_only_n(char *cmd);
-/*-------------uitls------------*/
+void	exec(t_cmd **cmds, int i, int in);
+void	free_lines(t_line **cmd);
+/*-------------utils------------*/
 char	**ft_split(const char *s, char c);
+int		ft_strcmp(const char *s1, const char *s2);
 char	**ft_split_mod(const char *s, char c);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);
-int     ft_str_contain(char *substr, char *str);
+int		ft_str_contain(char *substr, char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isbackslashable(int c);
+int		check_pip(char *cmd);
 /*--------------del--------------*/
 void	ft_rm_space_start(char **cmd_tab);
 void	remove_quote(char *cmd, char quote);
@@ -95,7 +99,7 @@ void	init(char **ev, t_env *env);
 int		set_var_env(t_env *env, char *kw, char *value);
 void	expend_var(char **cmd, size_t index);
 void	expend_var_quote(char **cmd, size_t *i, char quote);
-void 	expend_all(t_cmd **cmd);
+void	expend_all(t_cmd **cmd);
 void	expend(char **cmd);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, char *cmd);
@@ -103,18 +107,19 @@ void	cmd_pwd(int fd, t_env *env);
 void	cmd_env(int fd, t_env g_env);
 void	cmd_exec(t_cmd *cmd, int in, int out);
 void	cmd_cd(t_env *env, char *cmd);
-char 	*read_result(int fd);
+char	*read_result(int fd);
 /*--------------redirection------*/
 int		write_redirection(int input, int fd);
 int		check_redirection_o(char **cmd);
 int		check_redirection_i(char **cmd);
+void	delete_redirection(char **cmd, char c);
 int		read_file(t_redir *r);
 int		heredoc(t_redir *r);
-int 	inc_i(char *cmd, char c);
-char    *get_kw(char *cmd, char type);
+int		inc_i(char *cmd, char c);
+char	*get_kw(char *cmd, char type);
 t_redir	*get_redirection(char **cmd, int i);
 void	get_redirect(t_redir **redir, int *in, int *out);
-
+int		ft_create_file(t_redir *redir);
 
 void	rl_replace_line(const char *text, int clear_undo);
 

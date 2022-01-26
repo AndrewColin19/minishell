@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_mod.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:35:54 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/05 16:28:57 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 10:17:59 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	ignore_quote(const char *s, int *i, char quote)
 		if (s[*i] == '\\')
 			(*i) += 2;
 		if (s[*i] == quote)
-			break;
+			break ;
 		if (s[*i] == '\0')
-			break;
+			break ;
 		(*i)++;
 	}
 	if (s[*i] == '\0')
@@ -102,8 +102,6 @@ char	**ft_split_mod(const char *s, char c)
 	if (ft_split_size(s, c) == -1)
 		return (NULL);
 	words = malloc(sizeof(char *) * (ft_split_size(s, c) + 1));
-	if (!words)
-		return (NULL);
 	i = 0;
 	k = 0;
 	while (s[i] != '\0')

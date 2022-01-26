@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expend.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:01 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/08 02:06:15 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 10:03:45 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	insert_code(char **cmd, size_t *start)
 	char	*debut;
 	char	*fin;
 	char	*tmp;
-	
+
 	debut = get_char(*cmd, 0, *start);
 	fin = get_char(*cmd, *start + 2, ft_strlen(*cmd));
 	if (fin)
@@ -53,8 +53,7 @@ void	insert(char **cmd, char *var, size_t *start, size_t end)
 	char	*debut;
 	char	*fin;
 	char	*tmp;
-	
-	
+
 	if (!var)
 		var = "";
 	debut = get_char(*cmd, 0, *start);
@@ -86,7 +85,7 @@ void	expend_var_quote(char **cmd, size_t *i, char quote)
 				while (ft_isalnum(cmd[0][k]))
 					k++;
 				insert(cmd, get_var_env(&g_env,
-					get_char(*cmd, *i + 1, k)), i, k);
+						get_char(*cmd, *i + 1, k)), i, k);
 			}
 		}
 		if (cmd[0][*i] == '\\')
@@ -113,7 +112,7 @@ void	expend_var(char **cmd, size_t index)
 				while (ft_isalnum(cmd[0][k]))
 					k++;
 				insert(cmd, get_var_env(&g_env,
-					get_char(*cmd, j + 1, k)), &j, k);
+						get_char(*cmd, j + 1, k)), &j, k);
 			}
 		}
 		j++;

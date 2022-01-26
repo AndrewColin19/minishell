@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/04 13:22:41 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 10:02:17 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*set_value(char *kw, char *value)
 	int		size_v;
 	int		i;
 	int		j;
-	
+
 	size_kw = ft_strlen(kw);
 	size_v = ft_strlen(value);
 	v = malloc(sizeof(char) * size_kw + size_v + 2);
@@ -112,7 +112,7 @@ char	*get_var_env(t_env *env, char *kw)
 
 void	init(char **ev, t_env *env)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (ev[i])

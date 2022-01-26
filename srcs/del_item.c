@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_item.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 00:57:41 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/08 01:06:07 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 10:01:46 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	skip(char *str, size_t *i)
 void	remove_backslash_in_quote(char *str, char quote)
 {
 	size_t	i;
-	(void) quote;
 
+	(void) quote;
 	i = 0;
 	while (str[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 14:25:54 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/05 14:41:24 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 10:22:02 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	sb = (unsigned char *) s2;
 	i = 0;
 	while (sa[i] == sb[i] && sa[i] != '\0' && sb[i] != '\0' && i < n - 1)
+		i++;
+	return (sa[i] - sb[i]);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned char	*sa;
+	unsigned char	*sb;
+	size_t			i;
+
+	sa = (unsigned char *) s1;
+	sb = (unsigned char *) s2;
+	i = 0;
+	while (sa[i] == sb[i] && sa[i] != '\0' && sb[i] != '\0')
 		i++;
 	return (sa[i] - sb[i]);
 }
@@ -82,34 +96,4 @@ char	*ft_strdup(const char *s)
 	}
 	str[i] = '\0';
 	return (str);
-}
-
-int     ft_str_contain(char *substr, char *str)
-{
-	int 	i;
-	char	quote;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			if (str[i - 1] != '\\')
-			{
-				quote = str[i];
-				i++;
-				while (str[i] && str[i] != quote)
-				{
-					if (str[i] == quote && str[i - 1] != '\\')
-						break ;
-					else
-						i++;
-				}
-			}
-		}
-		if (!ft_strncmp(str + i, substr, ft_strlen(substr)))
-			return (1);
-		i++;
-	}
-	return (0);
 }

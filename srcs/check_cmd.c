@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:56:28 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/08 00:28:54 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 10:01:08 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	is_only_n(char *cmd)
 {
-    int	i;
+	int		i;
 
-    i = 0;
-	while(cmd[i] == 'n')
-	    i++;
+	i = 0;
+	while (cmd[i] == 'n')
+		i++;
 	if (cmd[i] != ' ' && cmd[i] != '\0')
-	    return (0);
+		return (0);
 	return (1);
 }
 
