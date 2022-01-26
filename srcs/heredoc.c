@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:44:31 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 12:24:06 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:14:14 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@ char	*get_kw(char *cmd, char type)
 	while (cmd[i] == type || cmd[i] == ' ')
 		i++;
 	j = i;
-	while (cmd[j] != ' ')
+	while (ft_isalnum(cmd[j]))
 		j++;
+	if (j == i)
+	{
+		printf("syntax error near unexpected token\n");
+		exit(1);
+	}
 	file = malloc(j - i);
 	j = 0;
 	while (cmd[i] != ' ')
