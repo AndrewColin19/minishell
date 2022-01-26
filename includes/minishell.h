@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:07:44 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:50:16 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ extern t_env	g_env;
 t_line	**parse(char *cmd);
 int		check_cmd(char *cmd, char *kw, int op);
 int		is_only_n(char *cmd);
-void	exec(t_cmd **cmds, int i, int in);
+void	exec(t_cmd **cmds, int i, int in, t_lines **lines);
 void	free_lines(t_line **cmd);
 /*-------------utils------------*/
 char	**ft_split(const char *s, char c);
@@ -114,7 +114,7 @@ void	cmd_exec(t_cmd *cmd, int in, int out);
 void	cmd_cd(t_env *env, t_cmd *cmd);
 void	cmd_export(int fd, t_env *g_env, t_cmd *cmd);
 void	cmd_unset(t_env *env, t_cmd *cmd);
-void	cmd_exit();
+void	cmd_exit(t_line **lines);
 char	*read_result(int fd);
 /*--------------redirection------*/
 int		write_redirection(int input, int fd);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:40:15 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 17:07:51 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 17:50:03 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	select_cmd(t_cmd *cmd, int in, int out)
+void	select_cmd(t_cmd *cmd, int in, int out, t_line **lines)
 {
 	if (check_cmd(cmd->cmd, ECHO, 1))
 		cmd_echo(out, cmd);
@@ -25,12 +25,12 @@ void	select_cmd(t_cmd *cmd, int in, int out)
 	else if (check_cmd(cmd->cmd, EXPORT, 0))
 		cmd_export(out, &g_env, cmd);
 	else if (check_cmd(cmd->cmd, EXIT, 1))
-		cmd_exit();
+		cmd_exit(lines);
 	else
 		cmd_exec(cmd, in, out);
 }
 
-void	exec(t_cmd **cmds, int i, int in)
+void	exec(t_cmd **cmds, int i, int in, t_line **lines)
 {
 	int		pipes[2];
 	int		redirect_out;
@@ -44,15 +44,15 @@ void	exec(t_cmd **cmds, int i, int in)
 		in = redirect_in;
 	if (cmds[i + 1] || redirect_out)
 	{
-		select_cmd(cmds[i], in, pipes[1]);
+		select_cmd(cmds[i], in, pipes[1], lines);
 		close(pipes[1]);
 		if (redirect_out)
 			write_redirection(pipes[0], redirect_out);
 		if (cmds[i + 1])
-			exec(cmds, i + 1, pipes[0]);
+			exec(cmds, i + 1, pipes[0], lines);
 	}
 	else
-		select_cmd(cmds[i], in, 1);
+		select_cmd(cmds[i], in, 1, lines);
 }
 
 void	free_redirs(t_redir *r)

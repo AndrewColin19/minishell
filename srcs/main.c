@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 16:56:02 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:48:51 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	loop(t_line **lines)
 		return ;
 	while (lines[i])
 	{
-		exec(lines[i]->cmds, 0, 0);
+		exec(lines[i]->cmds, 0, 0, lines);
 		i++;
 	}
 }
@@ -52,7 +52,7 @@ int	main(int argc, char *argv[], char **ev)
 	(void) argv;
 	init(ev, &g_env);
 	//signal(SIGINT, interrupt_signal);
-	//signal(11, quit_signal);
+	//signal(SIGQUIT, quit_signal);
 	while (1)
 	{
 		line = readline(SHELL_TEXT);

@@ -1,0 +1,6 @@
+Makefile
+dfsa
+includes
+libreadline.a
+minishell
+srcs
