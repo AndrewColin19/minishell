@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 10:45:46 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 13:49:01 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	loop(t_line **lines)
 	int	i;
 
 	i = 0;
+	if (lines[0]->cmds[0]->kw == NULL)
+		return ;
 	while (lines[i])
 	{
 		exec(lines[i]->cmds, 0, 0);
