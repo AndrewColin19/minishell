@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:44:31 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 10:25:24 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:24:06 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	read_file(t_redir *r)
 	fd = open(r->kw, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("minishell: %s: No such file or directory", r->kw);//errno
-		return (0);
+		perror(r->kw);
+		return (-1);
 	}
 	pipe(pipes);
 	while (read(fd, &c, 1))
