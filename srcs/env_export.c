@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:13:12 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 13:29:08 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 16:43:42 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,30 @@ char	**dup_tab(char **tab)
 
 void	aff_var_export_tab(int fd, char **tab)
 {
-    int i;
-    int j;
-    int k;
-    
-    i = -1;
-    while (tab[++i])
-    {
-        k = 0;
-        putstr(fd, "declare -x ");
-        j = 0;
-        while (tab[i][j])
-        {
-            write(1, &tab[i][j], 1);
-            if (tab[i][j] == '=' && k == 0)
-            {
-                write(1, "\"", 1);
-                k = 1;
-            }
-            if (tab[i][j + 1] == '\0' && k == 1)
-                write(1, "\"", 1);
-            j++;
-        }
-        write(1, "\n", 1);
-    }
+	int	i;
+	int	j;
+	int	k;
+
+	i = -1;
+	while (tab[++i])
+	{
+		k = 0;
+		putstr(fd, "declare -x ");
+		j = 0;
+		while (tab[i][j])
+		{
+			write(1, &tab[i][j], 1);
+			if (tab[i][j] == '=' && k == 0)
+			{
+				write(1, "\"", 1);
+				k = 1;
+			}
+			if (tab[i][j + 1] == '\0' && k == 1)
+				write(1, "\"", 1);
+			j++;
+		}
+		write(1, "\n", 1);
+	}
 }
 
 void	order_by_asc(char **tab)

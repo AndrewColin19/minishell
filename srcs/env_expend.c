@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:01 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 16:05:52 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 16:46:09 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	insert(char **cmd, char *var, size_t *start, size_t end)
 	char	*debut;
 	char	*fin;
 	char	*tmp;
-	
+
 	if (!var)
 		var = "";
 	debut = get_char(*cmd, 0, *start);
@@ -76,14 +76,14 @@ void	expend_var_quote(t_env *env, char **cmd, size_t *i, char quote)
 	while (cmd[0][*i] != quote)
 	{
 		if (cmd[0][*i] == '$' && cmd[0][*i + 1] == '?')
-				insert_code(env, cmd, i);
+			insert_code(env, cmd, i);
 		else if (cmd[0][*i] == '$' && ft_isalnum(cmd[0][*i + 1]))
 		{
 			k = *i + 1;
 			while (ft_isalnum(cmd[0][k]))
 				k++;
 			insert(cmd, get_var_env(&g_env,
-				get_char(*cmd, *i + 1, k)), i, k);
+					get_char(*cmd, *i + 1, k)), i, k);
 		}
 		if (cmd[0][*i] == '\\')
 			(*i)++;
