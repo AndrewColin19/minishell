@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:18:49 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/07 19:33:09 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 11:36:43 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ char	*get_exec_path(char *cmd, char *path, int *exist)
 
 	i = 0;
 	splited_path = ft_split(get_var_env(&g_env, "PATH"), ':');
-	if (open(cmd, O_RDONLY) > -1)
-	{
-		*exist = 1;
-		return (cmd);
-	}
 	while (splited_path[i])
 	{
 		splited_path[i] = ft_strjoin(splited_path[i], "/");
@@ -59,6 +54,20 @@ char	*get_exec_path(char *cmd, char *path, int *exist)
 	return (NULL);
 }
 
+int	is_path(char *cmd)
+{
+	int		i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	cmd_exec(t_cmd *cmd, int in, int out)
 {
 	char	*path;
@@ -66,12 +75,18 @@ void	cmd_exec(t_cmd *cmd, int in, int out)
 
 	exist = 0;
 	path = NULL;
-	path = get_exec_path(cmd->kw, path, &exist);
+	if (open(cmd->kw, O_RDONLY) > -1)
+	{
+		exist = 1;
+		path = cmd->kw;
+	}
+	else if (!is_path(cmd->kw))
+		path = get_exec_path(cmd->kw, path, &exist);
 	if (exist == 0)
 	{
 		put_error(": command not found", cmd->cmd);
 		g_env.status = 127;
-		return ;
 	}
-	ft_exec(path, cmd->args, in, out);
+	else
+		ft_exec(path, cmd->args, in, out);
 }
