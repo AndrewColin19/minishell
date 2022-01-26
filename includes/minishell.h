@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 14:28:20 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 16:16:38 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		ft_isascii(int c);
 int		ft_isbackslashable(int c);
 int		check_pip(char *cmd);
 char	*get_char(char *cmd, size_t start, size_t end);
+char	*ft_itoa(int n);
 /*--------------del--------------*/
 void	ft_rm_space_start(char **cmd_tab);
 void	remove_quote(char *cmd, char quote);
@@ -100,15 +101,15 @@ char	*get_var_env(t_env *env, char *kw);
 int		add_var_env(t_env *env, char *kw, char *value);
 void	init(char **ev, t_env *env);
 int		set_var_env(t_env *env, char *kw, char *value);
-void	expend_var(char **cmd, size_t index);
-void	expend_var_quote(char **cmd, size_t *i, char quote);
+void	expend_var(t_env *env, char **cmd, size_t index);
+void	expend_var_quote(t_env *env, char **cmd, size_t *i, char quote);
 void	expend_all(t_cmd **cmd);
-void	expend(char **cmd);
+void	expend(t_env *env, char **cmd);
 void	aff_export(int fd, t_env *g_env);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, t_cmd *cmd);
 void	cmd_pwd(int fd, t_env *env);
-void	cmd_env(int fd, t_env g_env);
+void	cmd_env(int fd, t_env *env);
 void	cmd_exec(t_cmd *cmd, int in, int out);
 void	cmd_cd(t_env *env, t_cmd *cmd);
 void	cmd_export(int fd, t_env *g_env, t_cmd *cmd);
