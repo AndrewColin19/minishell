@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 12:12:02 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 12:31:07 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ int	add_var_env(t_env *env, char *kw, char *value)
 
 	if (get_var_env(env, kw))
 		return (0);
+	env->size_env += 1;
 	var = malloc(sizeof(char *) * env->size_env + 1);
-	if (!var)
-		return (0);
-	i = -1;
-	while (env->var_env[++i])
+	i = 0;
+	while (env->var_env[i])
+	{
 		var[i] = ft_strdup(env->var_env[i]);
-	var[i++] = set_value(kw, value);
-	var[i] = NULL;
+		i++;
+	}
+	var[i] = set_value(kw, value);
+	var[++i] = NULL;
 	env->var_env = var;
 	return (1);
 }
