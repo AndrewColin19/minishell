@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 10:02:17 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:12:02 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ static char	*set_value(char *kw, char *value)
 	size_kw = ft_strlen(kw);
 	size_v = ft_strlen(value);
 	v = malloc(sizeof(char) * size_kw + size_v + 2);
-	if (!v)
-		return (NULL);
 	i = -1;
 	j = -1;
 	while (++i < size_kw)
 		v[i] = kw[i];
-	v[i] = '=';
-	while (++j < size_v)
-		v[++i] = value[j];
+	if (value != NULL)
+	{
+		v[i] = '=';
+		while (++j < size_v)
+			v[++i] = value[j];
+	}
 	v[++i] = '\0';
 	return (v);
 }
@@ -48,11 +49,7 @@ int	add_var_env(t_env *env, char *kw, char *value)
 		return (0);
 	i = -1;
 	while (env->var_env[++i])
-	{
 		var[i] = ft_strdup(env->var_env[i]);
-		//if (env->var_env[i])
-			//free(env->var_env[i]);
-	}
 	var[i++] = set_value(kw, value);
 	var[i] = NULL;
 	env->var_env = var;

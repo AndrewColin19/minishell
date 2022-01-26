@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 11:24:07 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 12:16:06 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,25 @@ void	cmd_cd(t_env *g_env, char *cmd)
 
 void	cmd_export(int fd, t_env *g_env, char *cmd)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
 	del_quote(cmd);
 	i = 0;
 	while (cmd[i] && cmd[i] != ' ')
 		i++;
+	while (cmd[i] == ' ')
+		i++;
 	if (cmd[i] == '\0')
 		aff_export(fd, g_env);
+	else
+	{
+		j = i;
+		while (cmd[j] && cmd[j] != '=')
+			j++;
+		if (cmd[j] == '\0')
+			add_var_env(g_env, cmd + i, NULL);
+		else
+			add_var_env(g_env, get_char(cmd, i + 1, j), cmd + j + 1);
+	}
 }
