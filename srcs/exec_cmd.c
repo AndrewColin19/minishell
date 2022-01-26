@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:18:49 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 11:26:29 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:36:43 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_exec_path(char *cmd, char *path, int *exist)
 	return (NULL);
 }
 
-int		is_path(char *cmd)
+int	is_path(char *cmd)
 {
 	int		i;
 

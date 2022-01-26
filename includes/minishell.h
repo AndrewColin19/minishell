@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 11:29:22 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/26 11:37:03 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	expend_var(char **cmd, size_t index);
 void	expend_var_quote(char **cmd, size_t *i, char quote);
 void	expend_all(t_cmd **cmd);
 void	expend(char **cmd);
-void    aff_export(int fd, t_env *g_env);
+void	aff_export(int fd, t_env *g_env);
 /*--------------fct-------------*/
 void	cmd_echo(int fd, char *cmd);
 void	cmd_pwd(int fd, t_env *env);
