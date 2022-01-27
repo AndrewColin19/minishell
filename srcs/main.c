@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:51:51 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:43:58 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int	main(int argc, char *argv[], char **ev)
 			loop(lines);
 			free_lines(lines);
 		}
+		free(line);
 	}
 }
