@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:20 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/27 14:21:01 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:21:41 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		ft_isbackslashable(int c);
 int		check_pip(char *cmd);
 char	*get_char(char *cmd, size_t start, size_t end);
 char	*ft_itoa(int n);
-char	ft_tolower(char *str);
+char	*ft_tolower(char *str);
 /*--------------del--------------*/
 void	ft_rm_space_start(char **cmd_tab);
 void	remove_quote(char *cmd, char quote);
