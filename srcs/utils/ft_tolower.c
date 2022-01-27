@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 12:48:56 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/27 14:16:13 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:19:52 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@
  * \return		La valeur renvoyée est celle de la lettre convertie, 
  * 				ou bien c si la conversion n'était pas possible. 
  */
-int	ft_tolower(int c)
+char	ft_tolower(char *str)
 {
-	if (c >= 'A' && c <= 'Z')
-		c += 32;
-	return (c);
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[++i] >= 'A' && str[++i] <= 'Z')
+			str[++i] += 32;
+	}
 }
