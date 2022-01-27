@@ -6,7 +6,7 @@
 /*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 15:19:11 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/27 14:18:55 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:19:54 by lmataris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_cmd	*get_cmd(char *cmd)
 	while (splited[i])
 		del_quote(splited[i++]);
 	cmdt->kw = splited[0];
-	ft_tolower(cmdt->kw);
+	cmdt->kw = ft_tolower(cmdt->kw);
 	cmdt->args = splited;
 	return (cmdt);
 }
