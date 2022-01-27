@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:01:16 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/27 14:53:40 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:04:30 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,5 @@ int	main(int argc, char *argv[], char **ev)
 			free_lines(lines);
 		}
 		free(line);
-		system("leaks minishell");
 	}
 }
