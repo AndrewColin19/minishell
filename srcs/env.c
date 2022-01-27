@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/27 14:43:18 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:57:30 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	set_var_env(char *kw, char *value)
 			{
 				if (j == s_kw - 1)
 				{
+					free(g_env.var_env[i]);
 					g_env.var_env[i] = set_value(kw, value);
 					return (1);
 				}

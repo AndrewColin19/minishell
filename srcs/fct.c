@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/27 14:43:31 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:53:53 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	cmd_cd(t_cmd *cmd)
 	}
 	else
 	{
-		add_var_env("OLDPWD", get_var_env("PWD"));
-		set_var_env("PWD", path);
+		add_var_env(ft_strdup("OLDPWD"), get_var_env("PWD"));
+		set_var_env(ft_strdup("PWD"), path);
 	}
 	g_env.status = 0;
 }
