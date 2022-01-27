@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:45:14 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:39:36 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:43:18 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static char	*set_value(char *kw, char *value)
 			v[++i] = value[j];
 	}
 	v[++i] = '\0';
+	if (kw)
+		free(kw);
 	return (v);
 }
 
@@ -54,6 +56,7 @@ int	add_var_env(char *kw, char *value)
 	}
 	var[i] = set_value(kw, value);
 	var[++i] = NULL;
+	free_cmds(g_env.var_env);
 	g_env.var_env = var;
 	return (1);
 }

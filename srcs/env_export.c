@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:13:12 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/26 17:45:49 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:28:07 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	aff_export(int fd)
 	tab = dup_tab(g_env.var_env);
 	order_by_asc(tab);
 	aff_var_export_tab(fd, tab);
+	free_cmds(tab);
 }

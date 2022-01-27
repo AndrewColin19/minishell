@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/27 14:06:17 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:43:31 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	cmd_export(int fd, t_cmd *cmd)
 			i++;
 		}
 		if (cmd->args[1][i] == '\0')
-			add_var_env(cmd->args[1], NULL);
+			add_var_env(ft_strdup(cmd->args[1]), NULL);
 		else
 			add_var_env(get_char(cmd->args[1], 0, i),
 				cmd->args[1] + i + 1);
