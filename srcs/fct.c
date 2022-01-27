@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/26 18:07:43 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:06:17 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,22 @@ void	cmd_pwd(int fd)
 void	cmd_env(int fd)
 {
 	int	i;
+	int	j;
 
 	i = -1;
 	while (g_env.var_env[++i])
-		putstr_endl(fd, g_env.var_env[i]);
+	{
+		j = 0;
+		while (g_env.var_env[i][j])
+		{
+			if (g_env.var_env[i][j] == '=')
+			{
+				putstr_endl(fd, g_env.var_env[i]);
+				break;
+			}
+			j++;
+		}		
+	}
 	g_env.status = 0;
 }
 
