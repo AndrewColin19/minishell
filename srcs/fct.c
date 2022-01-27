@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 15:25:03 by andrew            #+#    #+#             */
-/*   Updated: 2022/01/27 14:53:53 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:58:52 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	cmd_env(int fd)
 			if (g_env.var_env[i][j] == '=')
 			{
 				putstr_endl(fd, g_env.var_env[i]);
-				break;
+				break ;
 			}
 			j++;
 		}		

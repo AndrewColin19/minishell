@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:58:31 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/27 14:01:02 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:59:42 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	ft_isok(char *str)
 {
-	int l;
+	int	l;
 	int	i;
 
 	l = 0;
 	i = 0;
 	while (str[i] && str[i] != '=')
 	{
-		if(ft_isalpha(str[i]))
+		if (ft_isalpha(str[i]))
 		{
 			l = 1;
 			i++;
