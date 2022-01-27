@@ -6,7 +6,7 @@
 /*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 12:48:56 by acolin            #+#    #+#             */
-/*   Updated: 2022/01/27 14:22:09 by acolin           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:23:40 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char	*ft_tolower(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[++i] >= 'A' && str[++i] <= 'Z')
-			str[++i] += 32;
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] += 32;
 	}
 	return (str);
 }
