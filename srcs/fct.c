@@ -66,10 +66,8 @@ void	cmd_env(int fd)
 
 void	cmd_cd(t_cmd *cmd)
 {
-	int		i;
 	char	*path;
 
-	i = 0;
 	if (cmd->args[1] == NULL)
 		path = get_var_env("HOME");
 	else
