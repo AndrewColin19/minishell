@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmataris <lmataris@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: acolin <acolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:40:15 by lmataris          #+#    #+#             */
-/*   Updated: 2022/01/26 18:20:01 by lmataris         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:36:48 by acolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void	free_lines(t_line **cmd)
 		free(cmd[k]);
 		k++;
 	}
+	k = 0;
 	free(cmd);
 }
